@@ -13,7 +13,7 @@ export default function Gallery() {
   return (
     <section id="gallery" className="mx-auto max-w-[1200px] px-6 py-24 md:py-32">
       <Reveal>
-        <h2 className="font-serif text-heading text-foreground">{t.gallery.heading}</h2>
+        <h2 className="font-display text-heading text-foreground">{t.gallery.heading}</h2>
         <p className="mt-3 max-w-xl text-muted">{t.gallery.subheading}</p>
       </Reveal>
 

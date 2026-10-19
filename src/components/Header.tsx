@@ -17,7 +17,7 @@ export default function Header() {
   return (
     <header className="hairline sticky top-0 z-40 border-b bg-background/90 backdrop-blur-md">
       <div className="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-4">
-        <Link href="/" className="font-serif text-xl text-foreground">
+        <Link href="/" className="font-display text-xl text-foreground">
           {doctor.shortName}
         </Link>
 
@@ -47,7 +47,7 @@ export default function Header() {
 
           <a
             href={doctor.whatsappHref}
-            className="tap-target hidden items-center rounded-full bg-ink px-6 text-sm font-medium text-ivory transition-opacity hover:opacity-85 sm:flex"
+            className="tap-target hidden items-center rounded-full bg-ink px-6 text-sm font-medium text-white transition-opacity hover:opacity-85 sm:flex"
           >
             {t.nav.book}
           </a>

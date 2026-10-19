@@ -11,7 +11,7 @@ export default function About() {
     <section id="about" className="mx-auto max-w-[1200px] px-6 py-24 md:py-32">
       <div className="grid gap-10 md:grid-cols-[1fr_2fr] md:gap-16">
         <Reveal>
-          <h2 className="font-serif text-heading text-foreground">{t.about.heading}</h2>
+          <h2 className="font-display text-heading text-foreground">{t.about.heading}</h2>
         </Reveal>
 
         <Reveal delay={0.1}>

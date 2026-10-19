@@ -11,7 +11,7 @@ export default function Testimonials() {
     <section id="testimonials" className="hairline border-t bg-surface py-24 md:py-32">
       <div className="mx-auto max-w-[1200px] px-6">
         <Reveal>
-          <h2 className="font-serif text-heading text-foreground">{t.testimonials.heading}</h2>
+          <h2 className="font-display text-heading text-foreground">{t.testimonials.heading}</h2>
         </Reveal>
 
         <div className="mt-14 grid items-stretch gap-6 md:grid-cols-3">
@@ -21,7 +21,7 @@ export default function Testimonials() {
                 <blockquote
                   dir={testimonial.lang === "ar" ? "rtl" : "ltr"}
                   className={`text-base leading-relaxed text-foreground ${
-                    testimonial.lang === "ar" ? "text-right font-serif" : "text-left"
+                    testimonial.lang === "ar" ? "text-right font-display" : "text-left"
                   }`}
                 >
                   &ldquo;{testimonial.quote}&rdquo;

@@ -1,13 +1,17 @@
 // TODO (for Dr. Bushra): fill in with real, verifiable numbers before publishing.
-// Nothing here is imported or rendered yet — these are unconfirmed claims pulled
-// from the earlier scaffold and removed from the live site per instruction:
-// "لا تخترع أي ادعاء" (don't invent any claim).
-//
-// Once confirmed, wire these into src/lib/content.ts and the relevant components.
+// "لا تخترع أي ادعاء" — nothing here is shown on the live site until a value
+// is provided. StatsStrip (src/components/StatsStrip.tsx) reads this file and
+// renders only the entries that aren't null; if every entry is null it
+// renders nothing at all.
 
-export const unverifiedStatsTODO = {
-  yearsOfPractice: null, // e.g. "10+"
-  instagramFollowers: null, // e.g. "186K+" — only if currently accurate
-  casesCompleted: null,
-  pressOrAwardLogos: [] as { name: string; logoSrc: string }[],
+export type StatEntry = {
+  value: string | null; // e.g. "10+", "186K+", "4.9/5"
+  labelEn: string;
+  labelAr: string;
 };
+
+export const statsTODO: StatEntry[] = [
+  { value: null, labelEn: "Years of practice", labelAr: "سنوات خبرة" },
+  { value: null, labelEn: "Cases completed", labelAr: "حالة مكتملة" },
+  { value: null, labelEn: "Patient satisfaction", labelAr: "رضا المرضى" },
+];

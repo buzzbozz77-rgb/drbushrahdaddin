@@ -13,7 +13,7 @@ export default function MobileActionBar() {
     >
       <a
         href={doctor.whatsappHref}
-        className="tap-target flex flex-1 items-center justify-center rounded-full bg-ink px-4 text-sm font-medium text-ivory"
+        className="tap-target flex flex-1 items-center justify-center rounded-full bg-ink px-4 text-sm font-medium text-white"
       >
         {t.hero.ctaBook}
       </a>

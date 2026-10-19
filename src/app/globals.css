@@ -1,24 +1,27 @@
 @import "tailwindcss";
 
-/* Warm, private-clinic palette: ivory canvas, deep ink, one restrained metallic accent. */
+/* Clinical-bright palette: soft sky gradient on white, near-black ink, confident blue accent. */
 :root {
-  --color-ivory: #f7f2e9;
-  --color-paper: #fbf8f2;
-  --color-ink: #1f1a14;
-  --color-ink-soft: #2b241c;
-  --color-muted: #55493b;
-  --color-muted-soft: #7a6c5a;
-  --color-gold: #a9834f;
-  --color-gold-soft: #cdb17f;
-  --color-hairline: #e4dcc9;
-  --color-hairline-dark: rgba(247, 242, 233, 0.14);
+  --color-white: #ffffff;
+  --color-sky: #eaf2fc;
+  --color-sky-deep: #d7e6f8;
+  --color-ink: #10131a;
+  --color-ink-soft: #1a1f29;
+  --color-muted: #525a68;
+  --color-muted-soft: #78808f;
+  --color-blue: #2a5fd9;
+  --color-blue-soft: #e5edfb;
+  --color-hairline: #e3e8f0;
+  --color-hairline-dark: rgba(255, 255, 255, 0.12);
+  --color-glass-bg: rgba(255, 255, 255, 0.6);
+  --color-glass-border: rgba(16, 19, 26, 0.08);
 
-  --background: var(--color-ivory);
+  --background: var(--color-white);
   --foreground: var(--color-ink);
-  --surface: var(--color-paper);
+  --surface: var(--color-white);
   --muted: var(--color-muted);
   --muted-soft: var(--color-muted-soft);
-  --accent: var(--color-gold);
+  --accent: var(--color-blue);
   --border: var(--color-hairline);
 }
 
@@ -32,9 +35,10 @@
   --color-border: var(--border);
   --color-ink: var(--color-ink);
   --color-ink-soft: var(--color-ink-soft);
-  --color-ivory: var(--color-ivory);
+  --color-sky: var(--color-sky);
+  --color-blue-soft: var(--color-blue-soft);
   --font-sans: var(--font-inter);
-  --font-serif: var(--font-fraunces);
+  --font-display: var(--font-inter-tight);
 }
 
 body {
@@ -44,47 +48,48 @@ body {
 }
 
 html[dir="rtl"] body {
-  font-family: var(--font-cairo), var(--font-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-plex-arabic), var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
-.font-serif {
-  font-family: var(--font-serif), Georgia, serif;
+.font-display {
+  font-family: var(--font-display), Arial, Helvetica, sans-serif;
+  font-weight: 500;
 }
 
-html[dir="rtl"] .font-serif {
-  font-family: var(--font-amiri), var(--font-cairo), serif;
-  font-weight: 700;
+html[dir="rtl"] .font-display {
+  font-family: var(--font-plex-arabic), var(--font-sans), sans-serif;
+  font-weight: 600;
 }
 
 /* Type scale */
 .text-display {
   font-size: 40px;
-  line-height: 1.04;
-  letter-spacing: -0.01em;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
 }
 .text-heading-lg {
-  font-size: 34px;
+  font-size: 32px;
   line-height: 1.1;
+  letter-spacing: -0.01em;
 }
 .text-heading {
-  font-size: 26px;
-  line-height: 1.15;
+  font-size: 24px;
+  line-height: 1.2;
 }
 .text-subheading {
-  font-size: 20px;
+  font-size: 19px;
   line-height: 1.3;
 }
 
 @media (min-width: 768px) {
   .text-display {
-    font-size: 64px;
-    line-height: 1.02;
+    font-size: 72px;
   }
   .text-heading-lg {
-    font-size: 44px;
+    font-size: 42px;
   }
   .text-heading {
-    font-size: 32px;
+    font-size: 30px;
   }
 }
 
@@ -92,9 +97,20 @@ html[dir="rtl"] .font-serif {
   border-color: var(--border);
 }
 
+.hero-gradient {
+  background: linear-gradient(180deg, var(--color-sky) 0%, var(--color-white) 78%);
+}
+
+.glass {
+  background: var(--color-glass-bg);
+  border: 1px solid var(--color-glass-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
 .section-dark {
   background: var(--color-ink);
-  color: var(--color-ivory);
+  color: var(--color-white);
 }
 
 .section-dark .hairline {
@@ -104,6 +120,15 @@ html[dir="rtl"] .font-serif {
 .tap-target {
   min-height: 48px;
   min-width: 48px;
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-18px) rotate(1.5deg); }
+}
+
+.animate-float-slow {
+  animation: float-slow 7s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Fraunces, Amiri, Cairo } from "next/font/google";
+import { Inter, Inter_Tight, IBM_Plex_Sans_Arabic } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -11,22 +11,16 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const interTight = Inter_Tight({
+  variable: "--font-inter-tight",
   subsets: ["latin"],
-  weight: ["400", "500"],
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600"],
 });
 
-const amiri = Amiri({
-  variable: "--font-amiri",
+const plexArabic = IBM_Plex_Sans_Arabic({
+  variable: "--font-plex-arabic",
   subsets: ["arabic"],
-  weight: ["400", "700"],
-});
-
-const cairo = Cairo({
-  variable: "--font-cairo",
-  subsets: ["latin", "arabic"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -39,7 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${fraunces.variable} ${amiri.variable} ${cairo.variable} h-full antialiased`}
+      className={`${inter.variable} ${interTight.variable} ${plexArabic.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
