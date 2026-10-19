@@ -37,6 +37,9 @@ export type Testimonial = {
   quote: string;
   author?: string;
   lang: "ar" | "en";
+  // Which service this story relates to — left unset until confirmed, so it
+  // only shows up under "All" rather than being guessed into a category.
+  category?: (typeof serviceSlugs)[number];
 };
 
 export const testimonials: Testimonial[] = [
@@ -59,3 +62,14 @@ export const testimonials: Testimonial[] = [
     author: "Patient feedback",
   },
 ];
+
+export type BeforeAfterPair = {
+  before: string;
+  after: string;
+  altBefore: string;
+  altAfter: string;
+};
+
+// Add real, clearly-paired before/after photos here once provided — e.g.
+// { before: "/case-photos/case-1-before.jpg", after: "/case-photos/case-1-after.jpg", ... }
+export const beforeAfterPairs: BeforeAfterPair[] = [];

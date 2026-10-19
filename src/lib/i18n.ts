@@ -57,6 +57,13 @@ type Dictionary = {
   testimonials: {
     heading: string;
   };
+  stories: {
+    heading: string;
+    subheading: string;
+    tabAll: string;
+    empty: string;
+    beforeAfterPlaceholder: string;
+  };
   contact: {
     heading: string;
     subheading: string;
@@ -129,6 +136,13 @@ export const dictionary: Record<Locale, Dictionary> = {
       subheading: "Real results, real patients. This section fills in as case photos are added.",
     },
     testimonials: { heading: "What patients say" },
+    stories: {
+      heading: "Patient stories",
+      subheading: "In their own words.",
+      tabAll: "All",
+      empty: "No stories for this service yet.",
+      beforeAfterPlaceholder: "Before & after photos are added here once available.",
+    },
     contact: {
       heading: "Plan your visit",
       subheading: "Based in Amman, Jordan. Reach out directly to book a consultation.",
@@ -196,6 +210,13 @@ export const dictionary: Record<Locale, Dictionary> = {
       subheading: "نتائج حقيقية، لمرضى حقيقيين. يتم تحديث هذا القسم فور إضافة صور الحالات.",
     },
     testimonials: { heading: "آراء المرضى" },
+    stories: {
+      heading: "قصص مرضانا",
+      subheading: "بكلماتهم هم.",
+      tabAll: "الكل",
+      empty: "لا يوجد قصص لهذه الخدمة بعد.",
+      beforeAfterPlaceholder: "رح تُضاف صور قبل وبعد هون فور توفرها.",
+    },
     contact: {
       heading: "خططي لزيارتك",
       subheading: "في عمّان، الأردن. تواصلي معنا مباشرة لحجز استشارة.",

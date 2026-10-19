@@ -3,7 +3,7 @@ import About from "@/components/About";
 import Services from "@/components/Services";
 import MeetTheTeam from "@/components/MeetTheTeam";
 import SmileJourneyPlanner from "@/components/SmileJourneyPlanner";
-import Testimonials from "@/components/Testimonials";
+import RealStories from "@/components/RealStories";
 import Contact from "@/components/Contact";
 
 // Gallery is built and ready (src/components/Gallery.tsx) — re-add it here
@@ -18,7 +18,7 @@ export default function Home() {
       <Services />
       <MeetTheTeam />
       <SmileJourneyPlanner />
-      <Testimonials />
+      <RealStories />
       <Contact />
     </>
   );
