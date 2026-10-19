@@ -74,6 +74,26 @@ type Dictionary = {
   hero: {
     ctaBook: string;
   };
+  booking: {
+    heading: string;
+    subheading: string;
+    nameLabel: string;
+    namePlaceholder: string;
+    phoneLabel: string;
+    phonePlaceholder: string;
+    serviceLabel: string;
+    servicePlaceholder: string;
+    dateLabel: string;
+    submit: string;
+    errorName: string;
+    errorPhone: string;
+    errorService: string;
+    successTitle: string;
+    successBody: string;
+    whatsappIntro: string;
+    fieldDate: string;
+    fieldNotSet: string;
+  };
 };
 
 export const dictionary: Record<Locale, Dictionary> = {
@@ -151,6 +171,26 @@ export const dictionary: Record<Locale, Dictionary> = {
       directions: "Get directions",
     },
     hero: { ctaBook: "Book a consultation" },
+    booking: {
+      heading: "Book your first step",
+      subheading: "Fill this in and we'll confirm with you directly on WhatsApp.",
+      nameLabel: "Full name",
+      namePlaceholder: "Your name",
+      phoneLabel: "Phone number",
+      phonePlaceholder: "07XX XXX XXX",
+      serviceLabel: "Service",
+      servicePlaceholder: "Select a service",
+      dateLabel: "Preferred date",
+      submit: "Send request",
+      errorName: "Please enter your name.",
+      errorPhone: "Please enter a valid Jordanian phone number.",
+      errorService: "Please select a service.",
+      successTitle: "Request sent",
+      successBody: "We've opened WhatsApp with your details — send the message to confirm.",
+      whatsappIntro: "Hi, I'd like to book an appointment:",
+      fieldDate: "Preferred date",
+      fieldNotSet: "Not specified",
+    },
   },
   ar: {
     nav: {
@@ -225,5 +265,25 @@ export const dictionary: Record<Locale, Dictionary> = {
       directions: "احصل على الاتجاهات",
     },
     hero: { ctaBook: "احجزي استشارة" },
+    booking: {
+      heading: "ابدئي خطوتك الأولى",
+      subheading: "عبّي البيانات وبنأكدلك مباشرة عبر واتساب.",
+      nameLabel: "الاسم الكامل",
+      namePlaceholder: "اسمك",
+      phoneLabel: "رقم الهاتف",
+      phonePlaceholder: "07XX XXX XXX",
+      serviceLabel: "الخدمة",
+      servicePlaceholder: "اختاري خدمة",
+      dateLabel: "التاريخ المفضل",
+      submit: "أرسلي الطلب",
+      errorName: "فضلاً أدخلي اسمك.",
+      errorPhone: "فضلاً أدخلي رقم أردني صحيح.",
+      errorService: "فضلاً اختاري خدمة.",
+      successTitle: "تم إرسال الطلب",
+      successBody: "فتحنالك واتساب ببياناتك — ابعتي الرسالة لتأكيد الموعد.",
+      whatsappIntro: "أهلاً، حابة أحجز موعد بالتفاصيل التالية:",
+      fieldDate: "التاريخ المفضل",
+      fieldNotSet: "غير محدد",
+    },
   },
 };

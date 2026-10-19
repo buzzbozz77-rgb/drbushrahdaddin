@@ -4,6 +4,7 @@ import Services from "@/components/Services";
 import MeetTheTeam from "@/components/MeetTheTeam";
 import SmileJourneyPlanner from "@/components/SmileJourneyPlanner";
 import RealStories from "@/components/RealStories";
+import BookingForm from "@/components/BookingForm";
 import Contact from "@/components/Contact";
 
 // Gallery is built and ready (src/components/Gallery.tsx) — re-add it here
@@ -19,6 +20,7 @@ export default function Home() {
       <MeetTheTeam />
       <SmileJourneyPlanner />
       <RealStories />
+      <BookingForm />
       <Contact />
     </>
   );

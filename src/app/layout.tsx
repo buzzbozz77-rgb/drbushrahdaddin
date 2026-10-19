@@ -3,6 +3,7 @@ import { Inter, Inter_Tight, IBM_Plex_Sans_Arabic } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import MobileActionBar from "@/components/MobileActionBar";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { LocaleProvider, noFlashLocaleScript } from "@/components/LocaleProvider";
 
 const inter = Inter({
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <main className="flex-1 pb-20 md:pb-0">{children}</main>
           <Footer />
           <MobileActionBar />
+          <WhatsAppFloat />
         </LocaleProvider>
       </body>
     </html>
