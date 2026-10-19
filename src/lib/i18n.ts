@@ -23,6 +23,33 @@ type Dictionary = {
     subheading: string;
     items: { name: string; description: string }[];
   };
+  team: {
+    heading: string;
+    subheading: string;
+    comingSoon: string;
+  };
+  planner: {
+    heading: string;
+    subheading: string;
+    stepGoal: string;
+    stepMethod: string;
+    stepPatient: string;
+    selectTooth: string;
+    selectToothHint: string;
+    upper: string;
+    lower: string;
+    tooth: string;
+    result: string;
+    resultGoal: string;
+    resultMethod: string;
+    resultPatient: string;
+    resultTeeth: string;
+    resultDoctor: string;
+    notSelected: string;
+    noneSelected: string;
+    sendWhatsapp: string;
+    whatsappIntro: string;
+  };
   gallery: {
     heading: string;
     subheading: string;
@@ -70,6 +97,33 @@ export const dictionary: Record<Locale, Dictionary> = {
         { name: "Veneers & Implants", description: "Long-lasting restorations built on modern zirconia and implant systems." },
       ],
     },
+    team: {
+      heading: "Meet the minds behind your smile",
+      subheading: "A focused, hands-on practice led directly by Dr. Bushra.",
+      comingSoon: "More team members joining soon",
+    },
+    planner: {
+      heading: "Plan your smile journey",
+      subheading: "Tell us what you're after and we'll take it from there.",
+      stepGoal: "01. Your goal",
+      stepMethod: "02. Preferred method",
+      stepPatient: "03. Patient type",
+      selectTooth: "Select tooth",
+      selectToothHint: "Tap any tooth to include it in your plan",
+      upper: "Upper",
+      lower: "Lower",
+      tooth: "Tooth",
+      result: "Result",
+      resultGoal: "Goal",
+      resultMethod: "Method",
+      resultPatient: "Patient type",
+      resultTeeth: "Selected teeth",
+      resultDoctor: "Doctor",
+      notSelected: "Not selected yet",
+      noneSelected: "None selected",
+      sendWhatsapp: "Send via WhatsApp",
+      whatsappIntro: "Hi, I'd like to plan a visit with the following:",
+    },
     gallery: {
       heading: "Case gallery",
       subheading: "Real results, real patients. This section fills in as case photos are added.",
@@ -109,6 +163,33 @@ export const dictionary: Record<Locale, Dictionary> = {
         { name: "بوتوكس وفيلر", description: "تجميل وجه بلمسات ناعمة تكمّل جمال الابتسامة الطبيعية." },
         { name: "فينير وزراعة الأسنان", description: "ترميمات تدوم طويلاً باستخدام أنظمة زركونيا وزراعة حديثة." },
       ],
+    },
+    team: {
+      heading: "تعرّفي على فريق ابتسامتك",
+      subheading: "عيادة متخصصة تديرها الدكتورة بشرى بنفسها بإشراف مباشر.",
+      comingSoon: "أعضاء جدد بالفريق قريبًا",
+    },
+    planner: {
+      heading: "خططي لرحلة ابتسامتك",
+      subheading: "احكيلنا شو بدك بالضبط وبنكمل الباقي.",
+      stepGoal: "01. هدفك",
+      stepMethod: "02. الطريقة المفضلة",
+      stepPatient: "03. نوع المريض",
+      selectTooth: "اختاري السن",
+      selectToothHint: "اضغطي على أي سن لإضافته لخطتك",
+      upper: "علوي",
+      lower: "سفلي",
+      tooth: "سن",
+      result: "النتيجة",
+      resultGoal: "الهدف",
+      resultMethod: "الطريقة",
+      resultPatient: "نوع المريض",
+      resultTeeth: "الأسنان المختارة",
+      resultDoctor: "الدكتورة",
+      notSelected: "لم يتم الاختيار بعد",
+      noneSelected: "لا يوجد اختيار",
+      sendWhatsapp: "أرسلي لنا عبر واتساب",
+      whatsappIntro: "أهلاً، حابة أخطط لزيارة بالتفاصيل التالية:",
     },
     gallery: {
       heading: "معرض الحالات",
