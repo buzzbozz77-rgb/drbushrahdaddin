@@ -3,7 +3,7 @@
 export const doctor = {
   fullName: "Dr. Bushra Mazen Haddadin",
   shortName: "Dr. Bushra",
-  phone: "+962 79 644 4360",
+  phone: "+962 7 9644 4360",
   phoneHref: "tel:+962796444360",
   whatsappHref: "https://wa.me/962796444360",
   mapsHref: "https://goo.gl/maps/NrzwtDce8DcnCzoK6",

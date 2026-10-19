@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display, Cairo } from "next/font/google";
+import { Inter, Manrope, Cairo } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import ChatAssistant from "@/components/ChatAssistant";
 import { LocaleProvider, noFlashLocaleScript } from "@/components/LocaleProvider";
 
 const inter = Inter({
@@ -11,8 +12,8 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
 });
 
@@ -31,7 +32,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${playfair.variable} ${cairo.variable} h-full antialiased`}
+      className={`${inter.variable} ${manrope.variable} ${cairo.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <main className="flex-1">{children}</main>
           <Footer />
           <WhatsAppButton />
+          <ChatAssistant />
         </LocaleProvider>
       </body>
     </html>

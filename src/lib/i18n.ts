@@ -30,6 +30,7 @@ type Dictionary = {
   };
   testimonials: {
     heading: string;
+    verified: string;
   };
   contact: {
     heading: string;
@@ -38,7 +39,26 @@ type Dictionary = {
     directions: string;
   };
   hero: {
+    trustPill: string;
     ctaBook: string;
+  };
+  chat: {
+    assistantName: string;
+    greeting: string;
+    placeholder: string;
+    quickReplies: {
+      services: string;
+      book: string;
+      location: string;
+      hours: string;
+    };
+    answers: {
+      services: string;
+      book: string;
+      location: string;
+      hours: string;
+      fallback: string;
+    };
   };
 };
 
@@ -75,14 +95,35 @@ export const dictionary: Record<Locale, Dictionary> = {
       heading: "Case gallery",
       subheading: "Real results, real patients. This section fills in as case photos are added.",
     },
-    testimonials: { heading: "What patients say" },
+    testimonials: { heading: "What patients say", verified: "Verified patient" },
     contact: {
       heading: "Plan your visit",
       subheading: "Based in Amman, Jordan. Reach out directly or follow along for daily case studies and patient results.",
       whatsapp: "WhatsApp",
       directions: "Get directions",
     },
-    hero: { ctaBook: "Book a consultation" },
+    hero: {
+      trustPill: "Trusted by 186K+ patients online",
+      ctaBook: "Book a consultation",
+    },
+    chat: {
+      assistantName: "Clinic Assistant",
+      greeting: "Hi! I'm here to help with questions about Dr. Bushra's clinic. What would you like to know?",
+      placeholder: "Type a message…",
+      quickReplies: {
+        services: "What services do you offer?",
+        book: "How do I book?",
+        location: "Where are you located?",
+        hours: "What are your hours?",
+      },
+      answers: {
+        services: "We offer cosmetic dentistry, dental & oral surgery, botox & fillers, and veneers & implants. Tap 'Services' above for details.",
+        book: "The fastest way is WhatsApp — tap the green button in the corner and we'll confirm your appointment.",
+        location: "The clinic is in Amman, Jordan. Tap 'Get directions' in the Contact section for the map.",
+        hours: "Our team typically replies on WhatsApp within the same day — send a message any time and we'll confirm a slot.",
+        fallback: "Thanks for your message! For anything specific, the fastest reply is on WhatsApp — tap the green button in the corner.",
+      },
+    },
   },
   ar: {
     nav: {
@@ -115,13 +156,34 @@ export const dictionary: Record<Locale, Dictionary> = {
       heading: "معرض الحالات",
       subheading: "نتائج حقيقية، لمرضى حقيقيين. يتم تحديث هذا القسم فور إضافة صور الحالات.",
     },
-    testimonials: { heading: "آراء المرضى" },
+    testimonials: { heading: "آراء المرضى", verified: "مريض موثّق" },
     contact: {
       heading: "خططي لزيارتك",
       subheading: "في عمّان، الأردن. تواصلي معنا مباشرة أو تابعينا لحالات ونتائج يومية.",
       whatsapp: "واتساب",
       directions: "احصل على الاتجاهات",
     },
-    hero: { ctaBook: "احجزي استشارة" },
+    hero: {
+      trustPill: "موثوقة من أكثر من 186 ألف متابع",
+      ctaBook: "احجزي استشارة",
+    },
+    chat: {
+      assistantName: "مساعد العيادة",
+      greeting: "أهلاً! أنا هون لمساعدتك بأي سؤال عن عيادة الدكتورة بشرى. شو بدك تعرفي؟",
+      placeholder: "اكتبي رسالة…",
+      quickReplies: {
+        services: "شو الخدمات المتوفرة؟",
+        book: "كيف بقدر أحجز؟",
+        location: "وين موقع العيادة؟",
+        hours: "شو أوقات الدوام؟",
+      },
+      answers: {
+        services: "نقدم تجميل الأسنان، جراحة الأسنان والفم، بوتوكس وفيلر، وفينير وزراعة الأسنان. اضغطي على 'الخدمات' فوق لمزيد من التفاصيل.",
+        book: "أسرع طريقة هي الواتساب — اضغطي على الزر الأخضر بالزاوية وبنأكدلك الموعد.",
+        location: "العيادة في عمّان، الأردن. اضغطي 'احصل على الاتجاهات' بقسم التواصل لفتح الخريطة.",
+        hours: "فريقنا بيرد عادةً على الواتساب بنفس اليوم — ابعتي رسالة بأي وقت وبنأكدلك موعد.",
+        fallback: "شكراً إلك على رسالتك! لأي استفسار محدد، أسرع رد بيكون عبر الواتساب — اضغطي الزر الأخضر بالزاوية.",
+      },
+    },
   },
 };

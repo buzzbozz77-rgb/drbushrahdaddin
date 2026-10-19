@@ -16,9 +16,9 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/70 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link href="/" className="font-serif text-lg font-semibold tracking-tight">
+    <header className="sticky top-0 z-50 bg-surface/85 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-4">
+        <Link href="/" className="font-display text-lg tracking-tight text-foreground">
           {doctor.shortName}
         </Link>
 
@@ -27,7 +27,7 @@ export default function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-muted transition-colors hover:text-foreground"
+              className="text-body-sm text-muted-strong transition-colors hover:text-foreground"
             >
               {link.label}
             </a>
@@ -38,17 +38,17 @@ export default function Header() {
           <button
             type="button"
             onClick={toggleLocale}
-            className="flex items-center gap-1 rounded-full border border-border px-3 py-1.5 text-xs font-medium text-muted transition-colors hover:text-foreground"
+            className="flex items-center gap-1 rounded-xl border border-border px-3 py-1.5 text-caption font-medium text-muted-strong transition-colors hover:text-foreground"
             aria-label="Toggle language"
           >
-            <span className={locale === "en" ? "text-primary-dark" : undefined}>EN</span>
+            <span className={locale === "en" ? "text-foreground" : undefined}>EN</span>
             <span className="text-border">/</span>
-            <span className={locale === "ar" ? "text-primary-dark" : undefined}>AR</span>
+            <span className={locale === "ar" ? "text-foreground" : undefined}>AR</span>
           </button>
 
           <a
             href={doctor.whatsappHref}
-            className="rounded-full bg-primary px-5 py-2 text-sm font-medium text-white shadow-sm shadow-primary/30 transition-colors hover:bg-primary-dark"
+            className="rounded-full bg-foreground px-5 py-2.5 text-body-sm font-medium text-white transition-opacity hover:opacity-85"
           >
             {t.nav.book}
           </a>

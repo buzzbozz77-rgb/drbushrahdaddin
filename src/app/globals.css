@@ -1,57 +1,139 @@
 @import "tailwindcss";
 
+/* Design tokens — adapted from the Lóvi "prescription violet on porcelain" system */
 :root {
-  --background: #faf8fc;
-  --foreground: #231c2b;
-  --surface: #ffffff;
-  --primary: #9b7fd4;
-  --primary-dark: #6d4fab;
-  --primary-light: #c9b8ea;
-  --accent: #d9c9f0;
-  --muted: #6b6475;
-  --border: #e7e1f1;
+  --color-indigo-ink: #151581;
+  --color-electric-violet: #5465ff;
+  --color-lavender-mist: #a1a1cd;
+  --color-lilac-accent: #9f73e6;
+  --color-petal-blush: #de62de;
+  --color-verified-green: #00bb76;
+  --color-alert-rose: #f25c75;
+  --color-info-blue: #20a2e3;
+  --color-porcelain: #f6f6fa;
+  --color-paper-white: #ffffff;
+  --color-bone: #f6f5f4;
+  --color-fog: #d6d6d6;
+  --color-pebble: #bfbfbd;
+  --color-graphite: #292824;
+  --color-ash: #949392;
+
+  --gradient-brand: linear-gradient(
+    270deg,
+    rgba(102, 127, 255, 0.8) 19.614%,
+    rgba(206, 162, 255, 0.8) 50.0389%,
+    rgba(255, 133, 177, 0.8) 86.0908%
+  );
+
+  --shadow-elevation: rgba(36, 36, 41, 0.07) 0px 8px 34px 0px,
+    rgba(37, 36, 41, 0.09) 0px 1px 2px 0px;
+
+  --background: var(--color-porcelain);
+  --foreground: var(--color-indigo-ink);
+  --surface: var(--color-paper-white);
+  --surface-warm: var(--color-bone);
+  --muted: var(--color-lavender-mist);
+  --muted-strong: var(--color-ash);
+  --body-ink: var(--color-graphite);
+  --border: var(--color-fog);
+  --primary: var(--color-indigo-ink);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-surface: var(--surface);
+  --color-surface-warm: var(--surface-warm);
   --color-primary: var(--primary);
-  --color-primary-dark: var(--primary-dark);
-  --color-primary-light: var(--primary-light);
-  --color-accent: var(--accent);
   --color-muted: var(--muted);
+  --color-muted-strong: var(--muted-strong);
+  --color-body-ink: var(--body-ink);
   --color-border: var(--border);
+  --color-verified: var(--color-verified-green);
+  --color-lilac: var(--color-lilac-accent);
   --font-sans: var(--font-inter);
-  --font-serif: var(--font-playfair);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #15111c;
-    --foreground: #f2eefa;
-    --surface: #1e1829;
-    --primary: #b89cec;
-    --primary-dark: #9b7fd4;
-    --primary-light: #3a3049;
-    --accent: #2b2238;
-    --muted: #a69cb8;
-    --border: #322a40;
-  }
+  --font-display: var(--font-manrope);
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
+  color: var(--body-ink);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  letter-spacing: -0.011em;
 }
 
-html[dir="rtl"] body {
+html[dir="rtl"] body,
+html[dir="rtl"] .font-display {
   font-family: var(--font-cairo), var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
-html[dir="rtl"] .font-serif {
-  font-family: var(--font-cairo), var(--font-sans), serif;
+.font-display {
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+  font-weight: 400;
+  color: var(--foreground);
+}
+
+/* Type scale, per the source style reference */
+.text-display {
+  font-size: 48px;
+  line-height: 0.91;
+  letter-spacing: -0.042em;
+}
+.text-heading-lg {
+  font-size: 44px;
+  line-height: 0.92;
+  letter-spacing: -0.036em;
+}
+.text-heading {
+  font-size: 32px;
+  line-height: 1.05;
+  letter-spacing: -0.031em;
+}
+.text-heading-sm {
+  font-size: 28px;
+  line-height: 1.14;
+  letter-spacing: -0.023em;
+}
+.text-subheading {
+  font-size: 24px;
+  line-height: 1.25;
+}
+.text-body-lg {
+  font-size: 18px;
+  line-height: 1.38;
+}
+.text-body {
+  font-size: 16px;
+  line-height: 1.38;
+}
+.text-body-sm {
+  font-size: 14px;
+  line-height: 1.29;
+}
+.text-caption {
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+@media (max-width: 640px) {
+  .text-display {
+    font-size: 34px;
+    letter-spacing: -0.03em;
+  }
+  .text-heading-lg {
+    font-size: 30px;
+  }
+  .text-heading {
+    font-size: 26px;
+  }
+}
+
+.shadow-elevation {
+  box-shadow: var(--shadow-elevation);
+}
+
+.bg-brand-gradient {
+  background-image: var(--gradient-brand);
 }
 
 @keyframes float {
@@ -65,10 +147,20 @@ html[dir="rtl"] .font-serif {
   100% { transform: translate(0, 0) scale(1); }
 }
 
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(84, 101, 255, 0.35); }
+  70% { box-shadow: 0 0 0 14px rgba(84, 101, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(84, 101, 255, 0); }
+}
+
 .animate-float {
   animation: float 5s ease-in-out infinite;
 }
 
 .animate-drift {
   animation: drift 12s ease-in-out infinite;
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2.4s ease-out infinite;
 }
