@@ -4,82 +4,115 @@ import Image from "next/image";
 import { doctor } from "@/lib/content";
 import { useLocale } from "@/components/LocaleProvider";
 import Reveal from "@/components/Reveal";
-
-const chips = [
-  { key: "cosmetic", top: "18%", side: "6%" as const },
-  { key: "surgery", top: "48%", side: "92%" as const },
-  { key: "veneers", top: "78%", side: "10%" as const },
-];
+import Parallax from "@/components/Parallax";
 
 export default function Hero() {
-  const { t } = useLocale();
+  const { locale, toggleLocale, t } = useLocale();
+
+  const navLinks = [
+    { href: "#about", label: t.nav.about },
+    { href: "#services", label: t.nav.services },
+    { href: "#testimonials", label: t.nav.testimonials },
+    { href: "#contact", label: t.nav.contact },
+  ];
 
   return (
-    <section className="hero-gradient relative overflow-hidden">
-      <div className="mx-auto max-w-[1200px] px-6 pb-20 pt-10 md:pb-28 md:pt-16">
-        <Reveal className="flex justify-center">
-          <span className="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-foreground">
-            {t.doctor.title}
-          </span>
-        </Reveal>
+    <section className="hero-deep-blue px-3 pt-4 pb-10 md:px-6 md:pt-6 md:pb-16">
+      <div className="relative mx-auto max-w-[1320px] rounded-[32px] bg-white px-5 py-6 md:rounded-[40px] md:px-10 md:py-8">
+        <nav className="flex items-center justify-between">
+          <span className="font-display text-lg text-foreground">{doctor.shortName}</span>
 
-        <div className="relative mx-auto mt-8 max-w-4xl text-center md:mt-10">
-          <Reveal>
-            <h1 className="font-display text-display text-balance text-foreground">
-              {t.doctor.tagline}
-            </h1>
-          </Reveal>
-        </div>
-
-        <div className="relative mx-auto mt-8 flex max-w-sm justify-center md:mt-10 md:max-w-none">
-          {/* Decorative connector chips — desktop only, non-essential content */}
-          <div className="pointer-events-none absolute inset-0 hidden md:block" aria-hidden>
-            <svg className="absolute inset-0 h-full w-full" preserveAspectRatio="none">
-              {chips.map((chip) => (
-                <line
-                  key={chip.key}
-                  x1={chip.side}
-                  y1={chip.top}
-                  x2="50%"
-                  y2="50%"
-                  stroke="var(--color-hairline)"
-                  strokeWidth="1"
-                />
-              ))}
-            </svg>
-            {chips.map((chip, i) => (
-              <Reveal
-                key={chip.key}
-                delay={0.3 + i * 0.1}
-                className="glass absolute -translate-x-1/2 -translate-y-1/2 rounded-xl px-3 py-2 text-xs font-medium text-muted"
-                style={{ top: chip.top, left: chip.side }}
+          <div className="hidden items-center gap-8 lg:flex">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-sm text-muted transition-colors hover:text-foreground"
               >
-                {t.services.items[i].name}
-              </Reveal>
+                {link.label}
+              </a>
             ))}
           </div>
 
-          <Reveal delay={0.2} className="animate-float-slow relative z-10 w-56 sm:w-72 md:w-96">
-            <Image
-              src="/hero/tooth.png"
-              alt=""
-              width={760}
-              height={1040}
-              priority
-              className="h-auto w-full drop-shadow-2xl"
-            />
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={toggleLocale}
+              className="tap-target hairline flex items-center gap-1 rounded-full border px-3 text-xs font-medium text-muted transition-colors hover:text-foreground"
+              aria-label="Toggle language"
+            >
+              <span className={locale === "en" ? "text-foreground" : undefined}>EN</span>
+              <span className="text-border">/</span>
+              <span className={locale === "ar" ? "text-foreground" : undefined}>AR</span>
+            </button>
+            <a
+              href={doctor.whatsappHref}
+              className="tap-target hidden items-center rounded-full bg-ink px-5 text-sm font-medium text-white transition-opacity hover:opacity-85 sm:flex"
+            >
+              {t.nav.book}
+            </a>
+          </div>
+        </nav>
+
+        <div className="mt-10 flex flex-col gap-10 md:mt-16 lg:flex-row lg:items-center lg:justify-between lg:gap-6">
+          <Reveal className="text-center lg:max-w-lg lg:text-left">
+            <h1 className="font-display text-hero text-balance text-foreground">
+              {t.doctor.tagline}
+            </h1>
+            <p className="mx-auto mt-4 max-w-sm text-base leading-relaxed text-muted lg:mx-0">
+              {t.doctor.bio}
+            </p>
+          </Reveal>
+
+          <div className="relative mx-auto w-48 shrink-0 pb-10 sm:w-64 lg:w-72">
+            <Parallax strength={22}>
+              <Reveal delay={0.15} className="animate-float-slow">
+                <Image
+                  src="/hero/tooth-transparent.png"
+                  alt=""
+                  width={760}
+                  height={1040}
+                  priority
+                  className="h-auto w-full drop-shadow-2xl"
+                />
+              </Reveal>
+            </Parallax>
+
+            <Reveal
+              delay={0.3}
+              className="glass absolute -bottom-8 left-1/2 flex w-max max-w-[230px] -translate-x-1/2 items-center gap-3 rounded-2xl px-3 py-2.5"
+            >
+              <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full">
+                <Image
+                  src="/photos/dr-bushra.jpg"
+                  alt={doctor.fullName}
+                  fill
+                  className="object-cover"
+                  sizes="44px"
+                />
+              </div>
+              <div className="text-left rtl:text-right">
+                <p className="text-xs font-medium text-foreground">{doctor.fullName}</p>
+                <p className="text-[11px] leading-snug text-muted-soft">
+                  {t.doctor.title} · {t.doctor.location}
+                </p>
+              </div>
+            </Reveal>
+          </div>
+
+          <Reveal
+            delay={0.4}
+            className="flex flex-col items-center gap-3 lg:items-end lg:text-right"
+          >
+            <a
+              href={doctor.whatsappHref}
+              className="tap-target inline-flex items-center rounded-full bg-ink px-8 text-base font-medium text-white transition-opacity hover:opacity-85"
+            >
+              {t.hero.ctaBook}
+            </a>
+            <p className="text-sm text-muted-soft">{t.doctor.location}</p>
           </Reveal>
         </div>
-
-        <Reveal delay={0.35} className="mt-10 flex flex-col items-center gap-4">
-          <a
-            href={doctor.whatsappHref}
-            className="tap-target inline-flex items-center rounded-full bg-ink px-8 text-base font-medium text-white transition-opacity hover:opacity-85"
-          >
-            {t.hero.ctaBook}
-          </a>
-          <p className="text-sm text-muted-soft">{t.doctor.location}</p>
-        </Reveal>
       </div>
     </section>
   );

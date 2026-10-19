@@ -15,6 +15,11 @@
   --color-hairline-dark: rgba(255, 255, 255, 0.12);
   --color-glass-bg: rgba(255, 255, 255, 0.6);
   --color-glass-border: rgba(16, 19, 26, 0.08);
+  --color-glass-bg-on-blue: rgba(255, 255, 255, 0.14);
+  --color-glass-border-on-blue: rgba(255, 255, 255, 0.28);
+  --color-blue-deep-1: #142a8c;
+  --color-blue-deep-2: #2f55e8;
+  --color-blue-deep-3: #0c1c66;
 
   --background: var(--color-white);
   --foreground: var(--color-ink);
@@ -80,6 +85,11 @@ html[dir="rtl"] .font-display {
   font-size: 19px;
   line-height: 1.3;
 }
+.text-hero {
+  font-size: 38px;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
 
 @media (min-width: 768px) {
   .text-display {
@@ -87,6 +97,9 @@ html[dir="rtl"] .font-display {
   }
   .text-heading-lg {
     font-size: 42px;
+  }
+  .text-hero {
+    font-size: 54px;
   }
   .text-heading {
     font-size: 30px;
@@ -97,13 +110,25 @@ html[dir="rtl"] .font-display {
   border-color: var(--border);
 }
 
-.hero-gradient {
-  background: linear-gradient(180deg, var(--color-sky) 0%, var(--color-white) 78%);
+.hero-deep-blue {
+  background: radial-gradient(
+      ellipse 120% 90% at 50% 0%,
+      var(--color-blue-deep-2) 0%,
+      var(--color-blue-deep-1) 55%,
+      var(--color-blue-deep-3) 100%
+    );
 }
 
 .glass {
   background: var(--color-glass-bg);
   border: 1px solid var(--color-glass-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.glass-on-blue {
+  background: var(--color-glass-bg-on-blue);
+  border: 1px solid var(--color-glass-border-on-blue);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Inter_Tight, IBM_Plex_Sans_Arabic } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileActionBar from "@/components/MobileActionBar";
 import { LocaleProvider, noFlashLocaleScript } from "@/components/LocaleProvider";
@@ -41,7 +40,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <LocaleProvider>
-          <Header />
           <main className="flex-1 pb-20 md:pb-0">{children}</main>
           <Footer />
           <MobileActionBar />
