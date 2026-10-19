@@ -12,7 +12,7 @@ export default function Hero() {
   return (
     <section className="relative">
       <div className="mx-auto grid max-w-[1400px] items-stretch md:grid-cols-2">
-        <div className="relative order-2 flex flex-col justify-center px-6 py-16 md:order-1 md:px-16 md:py-24 lg:px-20">
+        <div className="relative order-2 flex flex-col justify-center px-6 py-10 md:order-1 md:px-16 md:py-24 lg:px-20">
           <Reveal>
             <p className="text-sm font-medium uppercase tracking-[0.18em] text-accent">
               {t.doctor.title}
@@ -44,7 +44,7 @@ export default function Hero() {
           </Reveal>
         </div>
 
-        <div className="relative order-1 aspect-[4/5] overflow-hidden md:order-2 md:aspect-auto">
+        <div className="relative order-1 h-[46vh] overflow-hidden sm:h-[52vh] md:order-2 md:h-auto md:aspect-auto">
           <Parallax strength={50} className="absolute inset-0 -top-[8%] h-[116%] w-full">
             <Image
               src={doctor.portrait}

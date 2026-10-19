@@ -26,6 +26,15 @@ export default function Reveal({
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion) return;
 
+    // Safety net: web fonts finishing load after mount can shift layout and
+    // invalidate ScrollTrigger's cached offsets. Never leave content stuck
+    // invisible — force it in if the trigger hasn't fired within 2s.
+    const safety = window.setTimeout(() => {
+      if (gsap.getProperty(el, "opacity") === 0) {
+        gsap.to(el, { opacity: 1, y: 0, duration: 0.4 });
+      }
+    }, 2000);
+
     const ctx = gsap.context(() => {
       gsap.fromTo(
         el,
@@ -38,14 +47,22 @@ export default function Reveal({
           ease: "power2.out",
           scrollTrigger: {
             trigger: el,
-            start: "top 88%",
+            start: "top 100%",
             once: true,
           },
         }
       );
     }, el);
 
-    return () => ctx.revert();
+    const onLoad = () => ScrollTrigger.refresh();
+    window.addEventListener("load", onLoad);
+    document.fonts?.ready?.then(() => ScrollTrigger.refresh());
+
+    return () => {
+      window.clearTimeout(safety);
+      window.removeEventListener("load", onLoad);
+      ctx.revert();
+    };
   }, [delay]);
 
   return (

@@ -27,7 +27,7 @@ export default function Contact() {
               href={doctor.phoneHref}
               className="tap-target hairline inline-flex items-center rounded-full border px-8 text-base font-medium text-ivory transition-colors hover:bg-white/10"
             >
-              {doctor.phone}
+              <span dir="ltr">{doctor.phone}</span>
             </a>
             <a
               href={doctor.mapsHref}
