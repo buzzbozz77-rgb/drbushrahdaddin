@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { Inter, Manrope, Cairo } from "next/font/google";
+import { Inter, Fraunces, Amiri, Cairo } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import WhatsAppButton from "@/components/WhatsAppButton";
-import ChatAssistant from "@/components/ChatAssistant";
+import MobileActionBar from "@/components/MobileActionBar";
 import { LocaleProvider, noFlashLocaleScript } from "@/components/LocaleProvider";
 
 const inter = Inter({
@@ -12,9 +11,17 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
+  weight: ["400", "500"],
+  style: ["normal", "italic"],
+});
+
+const amiri = Amiri({
+  variable: "--font-amiri",
+  subsets: ["arabic"],
+  weight: ["400", "700"],
 });
 
 const cairo = Cairo({
@@ -32,7 +39,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${manrope.variable} ${cairo.variable} h-full antialiased`}
+      className={`${inter.variable} ${fraunces.variable} ${amiri.variable} ${cairo.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
@@ -41,10 +48,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <LocaleProvider>
           <Header />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 pb-20 md:pb-0">{children}</main>
           <Footer />
-          <WhatsAppButton />
-          <ChatAssistant />
+          <MobileActionBar />
         </LocaleProvider>
       </body>
     </html>

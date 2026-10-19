@@ -16,18 +16,18 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-surface/85 backdrop-blur-xl">
+    <header className="hairline sticky top-0 z-40 border-b bg-background/90 backdrop-blur-md">
       <div className="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-4">
-        <Link href="/" className="font-display text-lg tracking-tight text-foreground">
+        <Link href="/" className="font-serif text-xl text-foreground">
           {doctor.shortName}
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-8 lg:flex">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-body-sm text-muted-strong transition-colors hover:text-foreground"
+              className="text-sm text-muted transition-colors hover:text-foreground"
             >
               {link.label}
             </a>
@@ -38,7 +38,7 @@ export default function Header() {
           <button
             type="button"
             onClick={toggleLocale}
-            className="flex items-center gap-1 rounded-xl border border-border px-3 py-1.5 text-caption font-medium text-muted-strong transition-colors hover:text-foreground"
+            className="tap-target hairline flex items-center gap-1 rounded-full border px-3 text-xs font-medium text-muted transition-colors hover:text-foreground"
             aria-label="Toggle language"
           >
             <span className={locale === "en" ? "text-foreground" : undefined}>EN</span>
@@ -48,7 +48,7 @@ export default function Header() {
 
           <a
             href={doctor.whatsappHref}
-            className="rounded-full bg-foreground px-5 py-2.5 text-body-sm font-medium text-white transition-opacity hover:opacity-85"
+            className="tap-target hidden items-center rounded-full bg-ink px-6 text-sm font-medium text-ivory transition-opacity hover:opacity-85 sm:flex"
           >
             {t.nav.book}
           </a>

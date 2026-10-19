@@ -8,44 +8,44 @@ export default function Contact() {
   const { t } = useLocale();
 
   return (
-    <section id="contact" className="mx-auto max-w-[1200px] px-6 py-10">
-      <Reveal>
-        <div className="rounded-[40px] bg-surface px-8 py-14 text-center shadow-elevation md:px-16">
-          <h2 className="font-display text-heading-sm text-foreground">{t.contact.heading}</h2>
-          <p className="text-body mx-auto mt-3 max-w-md text-muted-strong">
+    <section id="contact" className="section-dark py-24 md:py-32">
+      <div className="mx-auto max-w-[1200px] px-6 text-center">
+        <Reveal>
+          <h2 className="font-serif text-heading-lg text-ivory">{t.contact.heading}</h2>
+          <p className="mx-auto mt-4 max-w-md text-base text-ivory/70">
             {t.contact.subheading}
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <a
               href={doctor.whatsappHref}
-              className="rounded-full bg-foreground px-7 py-3.5 text-body-sm font-medium text-white transition-transform hover:-translate-y-0.5"
+              className="tap-target inline-flex items-center rounded-full bg-ivory px-8 text-base font-medium text-ink transition-opacity hover:opacity-85"
             >
               {t.contact.whatsapp}
             </a>
             <a
               href={doctor.phoneHref}
-              className="rounded-full border border-border px-7 py-3.5 text-body-sm font-medium text-foreground transition-colors hover:bg-surface-warm"
+              className="tap-target hairline inline-flex items-center rounded-full border px-8 text-base font-medium text-ivory transition-colors hover:bg-white/10"
             >
               {doctor.phone}
             </a>
             <a
               href={doctor.mapsHref}
-              className="rounded-full border border-border px-7 py-3.5 text-body-sm font-medium text-foreground transition-colors hover:bg-surface-warm"
+              className="tap-target hairline inline-flex items-center rounded-full border px-8 text-base font-medium text-ivory transition-colors hover:bg-white/10"
             >
               {t.contact.directions}
             </a>
           </div>
 
-          <div className="mt-10 flex items-center justify-center gap-6 border-t border-border pt-6 text-body-sm text-muted-strong">
+          <div className="hairline mt-14 flex items-center justify-center gap-6 border-t pt-6 text-sm text-ivory/70">
             {Object.values(socials).map((social) => (
-              <a key={social.label} href={social.href} className="hover:text-foreground">
+              <a key={social.label} href={social.href} className="hover:text-ivory">
                 {social.label}
               </a>
             ))}
           </div>
-        </div>
-      </Reveal>
+        </Reveal>
+      </div>
     </section>
   );
 }

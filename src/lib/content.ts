@@ -17,8 +17,6 @@ export const socials = {
   facebook: { label: "Facebook", href: "https://facebook.com" },
 };
 
-export const statValues = ["186K+", "500+", "10+"];
-
 export const serviceSlugs = [
   "cosmetic-dentistry",
   "dental-oral-surgery",

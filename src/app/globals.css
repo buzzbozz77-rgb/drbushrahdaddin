@@ -1,166 +1,118 @@
 @import "tailwindcss";
 
-/* Design tokens — adapted from the Lóvi "prescription violet on porcelain" system */
+/* Warm, private-clinic palette: ivory canvas, deep ink, one restrained metallic accent. */
 :root {
-  --color-indigo-ink: #151581;
-  --color-electric-violet: #5465ff;
-  --color-lavender-mist: #a1a1cd;
-  --color-lilac-accent: #9f73e6;
-  --color-petal-blush: #de62de;
-  --color-verified-green: #00bb76;
-  --color-alert-rose: #f25c75;
-  --color-info-blue: #20a2e3;
-  --color-porcelain: #f6f6fa;
-  --color-paper-white: #ffffff;
-  --color-bone: #f6f5f4;
-  --color-fog: #d6d6d6;
-  --color-pebble: #bfbfbd;
-  --color-graphite: #292824;
-  --color-ash: #949392;
+  --color-ivory: #f7f2e9;
+  --color-paper: #fbf8f2;
+  --color-ink: #1f1a14;
+  --color-ink-soft: #2b241c;
+  --color-muted: #55493b;
+  --color-muted-soft: #7a6c5a;
+  --color-gold: #a9834f;
+  --color-gold-soft: #cdb17f;
+  --color-hairline: #e4dcc9;
+  --color-hairline-dark: rgba(247, 242, 233, 0.14);
 
-  --gradient-brand: linear-gradient(
-    270deg,
-    rgba(102, 127, 255, 0.8) 19.614%,
-    rgba(206, 162, 255, 0.8) 50.0389%,
-    rgba(255, 133, 177, 0.8) 86.0908%
-  );
-
-  --shadow-elevation: rgba(36, 36, 41, 0.07) 0px 8px 34px 0px,
-    rgba(37, 36, 41, 0.09) 0px 1px 2px 0px;
-
-  --background: var(--color-porcelain);
-  --foreground: var(--color-indigo-ink);
-  --surface: var(--color-paper-white);
-  --surface-warm: var(--color-bone);
-  --muted: var(--color-lavender-mist);
-  --muted-strong: var(--color-ash);
-  --body-ink: var(--color-graphite);
-  --border: var(--color-fog);
-  --primary: var(--color-indigo-ink);
+  --background: var(--color-ivory);
+  --foreground: var(--color-ink);
+  --surface: var(--color-paper);
+  --muted: var(--color-muted);
+  --muted-soft: var(--color-muted-soft);
+  --accent: var(--color-gold);
+  --border: var(--color-hairline);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-surface: var(--surface);
-  --color-surface-warm: var(--surface-warm);
-  --color-primary: var(--primary);
   --color-muted: var(--muted);
-  --color-muted-strong: var(--muted-strong);
-  --color-body-ink: var(--body-ink);
+  --color-muted-soft: var(--muted-soft);
+  --color-accent: var(--accent);
   --color-border: var(--border);
-  --color-verified: var(--color-verified-green);
-  --color-lilac: var(--color-lilac-accent);
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-ivory: var(--color-ivory);
   --font-sans: var(--font-inter);
-  --font-display: var(--font-manrope);
+  --font-serif: var(--font-fraunces);
 }
 
 body {
   background: var(--background);
-  color: var(--body-ink);
+  color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
-  letter-spacing: -0.011em;
 }
 
-html[dir="rtl"] body,
-html[dir="rtl"] .font-display {
+html[dir="rtl"] body {
   font-family: var(--font-cairo), var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
-.font-display {
-  font-family: var(--font-display), var(--font-sans), sans-serif;
-  font-weight: 400;
-  color: var(--foreground);
+.font-serif {
+  font-family: var(--font-serif), Georgia, serif;
 }
 
-/* Type scale, per the source style reference */
+html[dir="rtl"] .font-serif {
+  font-family: var(--font-amiri), var(--font-cairo), serif;
+  font-weight: 700;
+}
+
+/* Type scale */
 .text-display {
-  font-size: 48px;
-  line-height: 0.91;
-  letter-spacing: -0.042em;
+  font-size: 40px;
+  line-height: 1.04;
+  letter-spacing: -0.01em;
 }
 .text-heading-lg {
-  font-size: 44px;
-  line-height: 0.92;
-  letter-spacing: -0.036em;
+  font-size: 34px;
+  line-height: 1.1;
 }
 .text-heading {
-  font-size: 32px;
-  line-height: 1.05;
-  letter-spacing: -0.031em;
-}
-.text-heading-sm {
-  font-size: 28px;
-  line-height: 1.14;
-  letter-spacing: -0.023em;
+  font-size: 26px;
+  line-height: 1.15;
 }
 .text-subheading {
-  font-size: 24px;
-  line-height: 1.25;
-}
-.text-body-lg {
-  font-size: 18px;
-  line-height: 1.38;
-}
-.text-body {
-  font-size: 16px;
-  line-height: 1.38;
-}
-.text-body-sm {
-  font-size: 14px;
-  line-height: 1.29;
-}
-.text-caption {
-  font-size: 12px;
-  line-height: 1.2;
+  font-size: 20px;
+  line-height: 1.3;
 }
 
-@media (max-width: 640px) {
+@media (min-width: 768px) {
   .text-display {
-    font-size: 34px;
-    letter-spacing: -0.03em;
+    font-size: 64px;
+    line-height: 1.02;
   }
   .text-heading-lg {
-    font-size: 30px;
+    font-size: 44px;
   }
   .text-heading {
-    font-size: 26px;
+    font-size: 32px;
   }
 }
 
-.shadow-elevation {
-  box-shadow: var(--shadow-elevation);
+.hairline {
+  border-color: var(--border);
 }
 
-.bg-brand-gradient {
-  background-image: var(--gradient-brand);
+.section-dark {
+  background: var(--color-ink);
+  color: var(--color-ivory);
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-14px); }
+.section-dark .hairline {
+  border-color: var(--color-hairline-dark);
 }
 
-@keyframes drift {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(20px, -30px) scale(1.08); }
-  100% { transform: translate(0, 0) scale(1); }
+.tap-target {
+  min-height: 48px;
+  min-width: 48px;
 }
 
-@keyframes pulse-ring {
-  0% { box-shadow: 0 0 0 0 rgba(84, 101, 255, 0.35); }
-  70% { box-shadow: 0 0 0 14px rgba(84, 101, 255, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(84, 101, 255, 0); }
-}
-
-.animate-float {
-  animation: float 5s ease-in-out infinite;
-}
-
-.animate-drift {
-  animation: drift 12s ease-in-out infinite;
-}
-
-.animate-pulse-ring {
-  animation: pulse-ring 2.4s ease-out infinite;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

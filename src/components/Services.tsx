@@ -8,28 +8,24 @@ export default function Services() {
   const { t } = useLocale();
 
   return (
-    <section id="services" className="mx-auto max-w-[1200px] px-6 py-10">
-      <Reveal>
-        <h2 className="font-display text-heading-sm text-center text-foreground">
-          {t.services.heading}
-        </h2>
-        <p className="text-body mx-auto mt-3 max-w-xl text-center text-muted">
-          {t.services.subheading}
-        </p>
-      </Reveal>
+    <section id="services" className="hairline border-t bg-surface py-24 md:py-32">
+      <div className="mx-auto max-w-[1200px] px-6">
+        <Reveal>
+          <h2 className="font-serif text-heading text-foreground">{t.services.heading}</h2>
+          <p className="mt-3 max-w-xl text-muted">{t.services.subheading}</p>
+        </Reveal>
 
-      <div className="mt-12 grid gap-4 sm:grid-cols-2">
-        {serviceSlugs.map((slug, i) => {
-          const item = t.services.items[i];
-          return (
-            <Reveal key={slug} delay={i * 0.08}>
-              <div className="h-full rounded-3xl bg-surface p-6 shadow-elevation transition-transform hover:-translate-y-1">
-                <h3 className="font-display text-subheading text-foreground">{item.name}</h3>
-                <p className="text-body-sm mt-2 text-muted-strong">{item.description}</p>
-              </div>
-            </Reveal>
-          );
-        })}
+        <div className="mt-14 grid gap-px overflow-hidden rounded-2xl sm:grid-cols-2" style={{ background: "var(--border)" }}>
+          {serviceSlugs.map((slug, i) => {
+            const item = t.services.items[i];
+            return (
+              <Reveal key={slug} delay={i * 0.06} className="bg-surface p-8">
+                <h3 className="font-serif text-subheading text-foreground">{item.name}</h3>
+                <p className="mt-2 text-sm text-muted">{item.description}</p>
+              </Reveal>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

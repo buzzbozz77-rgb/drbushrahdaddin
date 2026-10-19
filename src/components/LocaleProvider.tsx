@@ -40,8 +40,10 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const stored = (localStorage.getItem(STORAGE_KEY) as Locale | null) ?? "en";
-    setLocale(stored);
     applyDocumentLocale(stored);
+    // Syncing from localStorage (unavailable during SSR) on mount, not derived from props/state.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setLocale(stored);
   }, []);
 
   const toggleLocale = () => {
