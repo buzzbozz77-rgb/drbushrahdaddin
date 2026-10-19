@@ -4,6 +4,7 @@ import { doctor } from "@/lib/content";
 const navLinks = [
   { href: "#about", label: "About" },
   { href: "#services", label: "Services" },
+  { href: "#gallery", label: "Gallery" },
   { href: "#testimonials", label: "Testimonials" },
   { href: "#contact", label: "Contact" },
 ];

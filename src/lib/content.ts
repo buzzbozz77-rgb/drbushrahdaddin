@@ -62,6 +62,15 @@ export const services: Service[] = [
   },
 ];
 
+export type GalleryItem = {
+  src: string;
+  alt: string;
+};
+
+// Add real case photos here once provided, e.g.
+// { src: "/images/gallery/case-1.jpg", alt: "Veneers case — before and after" }
+export const gallery: GalleryItem[] = [];
+
 export type Testimonial = {
   quote: string;
   author?: string;
