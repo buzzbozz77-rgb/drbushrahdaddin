@@ -1,13 +1,21 @@
+"use client";
+
 import { doctor } from "@/lib/content";
+import { useLocale } from "@/components/LocaleProvider";
+import Reveal from "@/components/Reveal";
 
 export default function About() {
+  const { t } = useLocale();
+
   return (
     <section id="about" className="mx-auto max-w-6xl px-6 py-20">
       <div className="grid gap-10 md:grid-cols-[1fr_2fr] md:gap-16">
-        <h2 className="font-serif text-3xl text-foreground">About {doctor.shortName}</h2>
+        <Reveal>
+          <h2 className="font-serif text-3xl text-foreground">{t.about.heading}</h2>
+        </Reveal>
 
-        <div>
-          <p className="max-w-2xl text-lg leading-relaxed text-muted">{doctor.bio}</p>
+        <Reveal delay={0.1}>
+          <p className="max-w-2xl text-lg leading-relaxed text-muted">{t.doctor.bio}</p>
 
           <ul className="mt-8 flex flex-wrap gap-3">
             {doctor.credentials.map((credential) => (
@@ -19,7 +27,7 @@ export default function About() {
               </li>
             ))}
           </ul>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

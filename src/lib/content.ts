@@ -1,66 +1,30 @@
-// Central content source. Edit here to update copy across the site
-// without touching component markup.
+// Locale-independent data. Translatable copy lives in src/lib/i18n.ts.
 
 export const doctor = {
   fullName: "Dr. Bushra Mazen Haddadin",
   shortName: "Dr. Bushra",
-  title: "Cosmetic & Aesthetic Dentistry",
-  location: "Amman, Jordan",
   phone: "+962 79 644 4360",
   phoneHref: "tel:+962796444360",
   whatsappHref: "https://wa.me/962796444360",
   mapsHref: "https://goo.gl/maps/NrzwtDce8DcnCzoK6",
   portrait: "/images/dr-bushra-portrait.jpg",
-  credentials: [
-    "JUST",
-    "RCSI",
-    "American Aesthetic Assoc.",
-    "German ER Drs",
-  ],
-  tagline: "Precision dentistry, designed around your smile.",
-  bio: "Dr. Bushra Mazen Haddadin is a cosmetic and aesthetic dentist based in Amman, combining surgical precision with an artist's eye for natural, balanced smiles. Her practice spans cosmetic dentistry, oral surgery, and facial aesthetics — trusted by thousands of patients across the region.",
+  credentials: ["JUST", "RCSI", "American Aesthetic Assoc.", "German ER Drs"],
 };
 
 export const socials = {
-  instagram: { label: "Instagram", handle: "@dr.bushraa", href: "https://instagram.com/dr.bushraa" },
-  threads: { label: "Threads", handle: "@dr.bushraa", href: "https://www.threads.net/@dr.bushraa" },
-  facebook: { label: "Facebook", handle: "Dr Bushra Mazen Haddadin", href: "https://facebook.com" },
+  instagram: { label: "Instagram", href: "https://instagram.com/dr.bushraa" },
+  threads: { label: "Threads", href: "https://www.threads.net/@dr.bushraa" },
+  facebook: { label: "Facebook", href: "https://facebook.com" },
 };
 
-export const stats = [
-  { value: "186K+", label: "Instagram community" },
-  { value: "500+", label: "Posts & case studies" },
-  { value: "10+", label: "Years of practice" },
-];
+export const statValues = ["186K+", "500+", "10+"];
 
-export type Service = {
-  slug: string;
-  name: string;
-  shortDescription: string;
-};
-
-export const services: Service[] = [
-  {
-    slug: "cosmetic-dentistry",
-    name: "Cosmetic Dentistry",
-    shortDescription: "Smile design, veneers, and whitening tailored to facial harmony.",
-  },
-  {
-    slug: "dental-oral-surgery",
-    name: "Dental & Oral Surgery",
-    shortDescription: "Precise, minimally invasive surgical care in a controlled environment.",
-  },
-  {
-    slug: "botox-fillers",
-    name: "Botox & Fillers",
-    shortDescription: "Subtle facial aesthetics that complement a natural smile.",
-  },
-  {
-    slug: "veneers-implants",
-    name: "Veneers & Implants",
-    shortDescription: "Long-lasting restorations built on modern zirconia and implant systems.",
-  },
-];
+export const serviceSlugs = [
+  "cosmetic-dentistry",
+  "dental-oral-surgery",
+  "botox-fillers",
+  "veneers-implants",
+] as const;
 
 export type GalleryItem = {
   src: string;
