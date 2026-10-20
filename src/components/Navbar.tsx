@@ -87,7 +87,7 @@ export default function Navbar() {
         }`}
       >
         <div className="mx-auto flex max-w-[1320px] items-center justify-between px-5 md:px-8">
-          <a href="#" className="font-display text-base text-white md:text-lg">
+          <a href="#" className="tap-area font-display text-base text-white md:text-lg">
             {doctor.shortName}
           </a>
 
@@ -153,6 +153,7 @@ export default function Navbar() {
         <button
           type="button"
           onClick={toggleLocale}
+          aria-label="Toggle language"
           className="tap-target flex items-center gap-1 rounded-full border border-white/30 px-4 text-sm font-medium text-white/80"
         >
           <span className={locale === "en" ? "text-white" : undefined}>EN</span>

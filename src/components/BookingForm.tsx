@@ -173,11 +173,11 @@ export default function BookingForm() {
             <div className="hairline mt-8 flex items-center justify-center gap-6 border-t pt-6 text-sm">
               <a
                 href={`https://wa.me/${contact.whatsappNumber}`}
-                className="text-muted hover:text-foreground"
+                className="tap-area text-muted hover:text-foreground"
               >
                 {t.contact.whatsapp}
               </a>
-              <a href={contact.mapsHref} className="text-muted hover:text-foreground">
+              <a href={contact.mapsHref} className="tap-area text-muted hover:text-foreground">
                 {t.contact.directions}
               </a>
             </div>

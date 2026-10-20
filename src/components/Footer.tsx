@@ -57,20 +57,20 @@ export default function Footer() {
             </p>
             <ul className="mt-3 space-y-2 text-sm">
               <li>
-                <a href={contact.phoneHref} dir="ltr" className="text-muted hover:text-foreground">
+                <a href={contact.phoneHref} dir="ltr" className="tap-area text-muted hover:text-foreground">
                   {contact.phoneDisplay}
                 </a>
               </li>
               <li>
                 <a
                   href={`https://wa.me/${contact.whatsappNumber}`}
-                  className="text-muted hover:text-foreground"
+                  className="tap-area text-muted hover:text-foreground"
                 >
                   {t.contact.whatsapp}
                 </a>
               </li>
               <li>
-                <a href={contact.mapsHref} className="text-muted hover:text-foreground">
+                <a href={contact.mapsHref} className="tap-area text-muted hover:text-foreground">
                   {t.contact.directions}
                 </a>
               </li>
@@ -94,7 +94,7 @@ export default function Footer() {
             <ul className="mt-3 space-y-2 text-sm">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="text-muted hover:text-foreground">
+                  <a href={link.href} className="tap-area text-muted hover:text-foreground">
                     {link.label}
                   </a>
                 </li>
@@ -113,7 +113,7 @@ export default function Footer() {
                   key={social.label}
                   href={social.href}
                   aria-label={social.label}
-                  className="text-muted-soft transition-colors hover:text-foreground"
+                  className="tap-area text-muted-soft transition-colors hover:text-foreground"
                 >
                   {Icon ? <Icon /> : social.label}
                 </a>

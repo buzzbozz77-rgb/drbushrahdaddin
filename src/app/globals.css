@@ -191,6 +191,15 @@ html[dir="rtl"] .font-display {
   min-width: 48px;
 }
 
+/* Grows the tappable hit area of an inline text link to ~44px without
+   changing its visual footprint (padding expands the hit box, the matching
+   negative margin cancels the layout space it would otherwise take). */
+.tap-area {
+  display: inline-block;
+  padding-block: 0.75rem;
+  margin-block: -0.75rem;
+}
+
 @keyframes float-slow {
   0%, 100% { transform: translateY(0) rotate(0deg); }
   50% { transform: translateY(-18px) rotate(1.5deg); }
