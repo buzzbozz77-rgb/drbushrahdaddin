@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { testimonials, beforeAfterPairs } from "@/lib/content";
 import { serviceOptions } from "@/config/services";
 import { useLocale } from "@/components/LocaleProvider";
@@ -74,13 +75,26 @@ export default function RealStories() {
 
         <Reveal delay={0.15} className="mt-16">
           {beforeAfterPairs.length > 0 ? (
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {beforeAfterPairs.map((pair, i) => (
-                <BeforeAfterSlider key={i} pair={pair} />
-              ))}
-            </div>
+            <>
+              <BeforeAfterSlider pair={beforeAfterPairs[0]} />
+
+              {beforeAfterPairs.length > 1 && (
+                <div className="mx-auto mt-6 flex max-w-md flex-wrap justify-center gap-3">
+                  {beforeAfterPairs.slice(1).map((pair, i) => (
+                    <div key={i} className="flex overflow-hidden rounded-xl border border-white/15">
+                      <div className="relative h-20 w-16">
+                        <Image src={pair.before} alt={pair.altBefore} fill className="object-cover" sizes="64px" />
+                      </div>
+                      <div className="relative h-20 w-16">
+                        <Image src={pair.after} alt={pair.altAfter} fill className="object-cover" sizes="64px" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </>
           ) : (
-            <div className="flex aspect-[21/9] items-center justify-center rounded-2xl border border-dashed border-white/25">
+            <div className="mx-auto flex aspect-[4/3] max-w-md items-center justify-center rounded-2xl border border-dashed border-white/25">
               <p className="max-w-sm text-center text-sm text-white/60">
                 {t.stories.beforeAfterPlaceholder}
               </p>

@@ -41,19 +41,16 @@ export const testimonials: Testimonial[] = [
     lang: "ar",
     quote:
       "جزيل الشكر وعميق الإمتنان لدكتورتنا المبدعه المتميزة للإحترافيه العاليه والذوق الرفيع وحسن الاستقبال لما قدمتيه لي اليوم من معالجه طبيه بإسلوب مميز لم أشهده من قبل.",
-    author: "Patient feedback",
   },
   {
     lang: "ar",
     quote:
       "دكتورة اد ما احكي ما رح اوصف اديه شغلك بجنن، ايدك خفيفة وبتشتغلي جد من قلبك، وبتتعاملي مع المرضى كأنهم عيلتك وابدا مش ماديه، اسعارك في متناول الكل.",
-    author: "Patient feedback",
   },
   {
     lang: "en",
     quote:
       "Much appreciated doctor for following up my case that was seen after a normal dentist checkup. You and your team worked in a very professional way. Thank you again and god bless.",
-    author: "Patient feedback",
   },
 ];
 
@@ -68,7 +65,17 @@ export type BeforeAfterPair = {
   height: number;
 };
 
+// First entry is the primary interactive drag-slider (4:3, cropped tight to
+// mouth/teeth only); any further entries show as small static thumbnails.
 export const beforeAfterPairs: BeforeAfterPair[] = [
+  {
+    before: "/photos/before-after-clinical-before.webp",
+    after: "/photos/before-after-clinical-after.webp",
+    altBefore: "Teeth before treatment, clinical view",
+    altAfter: "Teeth after treatment, clinical view",
+    width: 593,
+    height: 445,
+  },
   {
     before: "/photos/before-after-selfie-before.webp",
     after: "/photos/before-after-selfie-after.webp",
@@ -76,13 +83,5 @@ export const beforeAfterPairs: BeforeAfterPair[] = [
     altAfter: "Teeth after whitening",
     width: 240,
     height: 480,
-  },
-  {
-    before: "/photos/before-after-clinical-before.webp",
-    after: "/photos/before-after-clinical-after.webp",
-    altBefore: "Teeth before treatment, clinical view",
-    altAfter: "Teeth after treatment, clinical view",
-    width: 1600,
-    height: 445,
   },
 ];
