@@ -94,6 +94,26 @@ type Dictionary = {
     fieldDate: string;
     fieldNotSet: string;
   };
+  assistant: {
+    name: string;
+    greeting: string;
+    quickBook: string;
+    quickServices: string;
+    quickLocation: string;
+    quickWhatsapp: string;
+    pickService: string;
+    pickDay: string;
+    dayToday: string;
+    dayTomorrow: string;
+    dayThisWeek: string;
+    dayFlexible: string;
+    namePrompt: string;
+    namePlaceholder: string;
+    send: string;
+    back: string;
+    whatsappIntro: string;
+    locationInfo: string;
+  };
 };
 
 export const dictionary: Record<Locale, Dictionary> = {
@@ -118,10 +138,10 @@ export const dictionary: Record<Locale, Dictionary> = {
       subheading:
         "A focused set of cosmetic, surgical, and aesthetic treatments — each planned around your individual facial structure and goals.",
       items: [
-        { name: "Cosmetic Dentistry", description: "Smile design, veneers, and whitening tailored to facial harmony." },
-        { name: "Dental & Oral Surgery", description: "Precise, minimally invasive surgical care in a controlled environment." },
-        { name: "Botox & Fillers", description: "Subtle facial aesthetics that complement a natural smile." },
-        { name: "Veneers & Implants", description: "Long-lasting restorations built on modern zirconia and implant systems." },
+        { name: "Cosmetic Dentistry", description: "Smile design, porcelain veneers, and professional whitening — planned around your facial proportions and the shade and shape that suit you." },
+        { name: "Dental & Oral Surgery", description: "Surgical and minor oral procedures carried out in a controlled clinical setting, following standard sterilization and safety protocols." },
+        { name: "Botox & Fillers", description: "Botox and dermal filler treatments administered by appointment, discussed and planned together before any procedure." },
+        { name: "Veneers & Implants", description: "Veneers and dental implants using modern materials, with each case assessed individually before a treatment plan is proposed." },
       ],
     },
     team: {
@@ -191,6 +211,26 @@ export const dictionary: Record<Locale, Dictionary> = {
       fieldDate: "Preferred date",
       fieldNotSet: "Not specified",
     },
+    assistant: {
+      name: "Booking assistant",
+      greeting: "Hi! I can help you book a visit with Dr. Bushra. What would you like to do?",
+      quickBook: "Book a visit",
+      quickServices: "Services",
+      quickLocation: "Location & hours",
+      quickWhatsapp: "Chat on WhatsApp",
+      pickService: "Which service?",
+      pickDay: "Preferred day?",
+      dayToday: "Today",
+      dayTomorrow: "Tomorrow",
+      dayThisWeek: "This week",
+      dayFlexible: "I'm flexible",
+      namePrompt: "What's your name?",
+      namePlaceholder: "Your name",
+      send: "Send on WhatsApp",
+      back: "Back",
+      whatsappIntro: "Hi, I'd like to book a visit:",
+      locationInfo: "We're based in Amman, Jordan. For exact hours, message us on WhatsApp and we'll confirm.",
+    },
   },
   ar: {
     nav: {
@@ -212,10 +252,10 @@ export const dictionary: Record<Locale, Dictionary> = {
       heading: "الخدمات",
       subheading: "مجموعة مركّزة من العلاجات التجميلية والجراحية والوجهية، كل علاج مخطط حسب ملامح وجهك وأهدافك.",
       items: [
-        { name: "تجميل الأسنان", description: "تصميم ابتسامة، فينير، وتبييض أسنان متناسق مع ملامح الوجه." },
-        { name: "جراحة الأسنان والفم", description: "رعاية جراحية دقيقة وأقل تدخلاً ضمن بيئة آمنة ومتكاملة." },
-        { name: "بوتوكس وفيلر", description: "تجميل وجه بلمسات ناعمة تكمّل جمال الابتسامة الطبيعية." },
-        { name: "فينير وزراعة الأسنان", description: "ترميمات تدوم طويلاً باستخدام أنظمة زركونيا وزراعة حديثة." },
+        { name: "تجميل الأسنان", description: "تصميم ابتسامة، فينير خزفي، وتبييض احترافي — بتخطيط يراعي تناسق ملامح وجهك واللون والشكل المناسبين لك." },
+        { name: "جراحة الأسنان والفم", description: "إجراءات جراحية وعلاجات فموية بسيطة تتم ضمن بيئة عيادة مجهزة، وفق بروتوكولات تعقيم وسلامة معتمدة." },
+        { name: "بوتوكس وفيلر", description: "جلسات بوتوكس وفيلر تتم بموعد مسبق، وبالتشاور الكامل معك قبل أي إجراء." },
+        { name: "فينير وزراعة الأسنان", description: "فينير وزراعة أسنان باستخدام مواد حديثة، وكل حالة تُقيَّم بشكل فردي قبل اقتراح خطة العلاج." },
       ],
     },
     team: {
@@ -284,6 +324,26 @@ export const dictionary: Record<Locale, Dictionary> = {
       whatsappIntro: "أهلاً، حابة أحجز موعد بالتفاصيل التالية:",
       fieldDate: "التاريخ المفضل",
       fieldNotSet: "غير محدد",
+    },
+    assistant: {
+      name: "مساعد الحجز",
+      greeting: "أهلاً! بقدر أساعدك تحجزي زيارة مع الدكتورة بشرى. شو حابة تعملي؟",
+      quickBook: "احجزي زيارة",
+      quickServices: "الخدمات",
+      quickLocation: "الموقع وساعات العمل",
+      quickWhatsapp: "تحدثي معنا على واتساب",
+      pickService: "أي خدمة؟",
+      pickDay: "اليوم المفضل؟",
+      dayToday: "اليوم",
+      dayTomorrow: "بكرا",
+      dayThisWeek: "هالأسبوع",
+      dayFlexible: "وقتي مرن",
+      namePrompt: "شو اسمك؟",
+      namePlaceholder: "اسمك",
+      send: "إرسال عبر واتساب",
+      back: "رجوع",
+      whatsappIntro: "أهلاً، حابة أحجز زيارة:",
+      locationInfo: "عيادتنا في عمّان، الأردن. لتأكيد الأوقات بالضبط، ابعتيلنا رسالة عالواتساب وبنردلك.",
     },
   },
 };

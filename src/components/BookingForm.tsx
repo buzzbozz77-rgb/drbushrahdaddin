@@ -45,8 +45,8 @@ export default function BookingForm() {
   };
 
   return (
-    <section id="book" className="px-3 py-10 md:px-6 md:py-16">
-      <div className="mx-auto max-w-[1320px]">
+    <section id="book" className="overflow-x-clip px-3 py-10 md:px-6 md:py-16">
+      <div className="mx-auto max-w-[1100px]">
         <Reveal>
           <h2 className="font-display text-heading-lg text-center text-white">
             {t.booking.heading}
@@ -56,10 +56,10 @@ export default function BookingForm() {
           </p>
         </Reveal>
 
-        <Reveal delay={0.1} className="relative mx-auto mt-16 max-w-xl">
+        <Reveal delay={0.1} className="relative mx-auto mt-16 max-w-[1100px]">
           <div
             aria-hidden
-            className="animate-float-slow pointer-events-none absolute -top-14 -left-10 w-40 opacity-90 sm:w-52"
+            className="animate-float-slow pointer-events-none absolute -top-10 left-2 z-10 w-28 opacity-90 sm:-top-16 sm:left-6 sm:w-44 md:w-56"
           >
             <Image
               src="/services/cutouts/full-smile-arch.png"
@@ -71,7 +71,7 @@ export default function BookingForm() {
           </div>
           <div
             aria-hidden
-            className="animate-float-slow pointer-events-none absolute -bottom-12 -right-8 w-24 opacity-90 sm:w-28"
+            className="animate-float-slow pointer-events-none absolute -bottom-8 right-2 z-10 w-16 opacity-90 sm:-bottom-12 sm:right-8 sm:w-24 md:w-28"
             style={{ animationDelay: "-3s" }}
           >
             <Image
@@ -83,7 +83,7 @@ export default function BookingForm() {
             />
           </div>
 
-          <div className="relative rounded-[28px] border border-white/40 bg-white/92 p-6 shadow-xl backdrop-blur-md md:p-10">
+          <div className="relative mx-auto max-w-2xl rounded-[28px] border border-white/40 bg-white/92 p-6 shadow-xl backdrop-blur-md md:p-10">
             {submitted ? (
               <div className="flex flex-col items-center py-10 text-center">
                 <span className="flex h-12 w-12 items-center justify-center rounded-full bg-ink text-white">
@@ -94,72 +94,76 @@ export default function BookingForm() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
-                <div>
-                  <label className="text-sm font-medium text-foreground" htmlFor="booking-name">
-                    {t.booking.nameLabel}
-                  </label>
-                  <input
-                    id="booking-name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder={t.booking.namePlaceholder}
-                    className="hairline tap-target mt-2 w-full rounded-xl border bg-white px-4 text-sm text-foreground outline-none focus:border-ink"
-                  />
-                  {errors.name && <p className="mt-1 text-xs text-red-600">{errors.name}</p>}
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <div>
+                    <label className="text-sm font-medium text-foreground" htmlFor="booking-name">
+                      {t.booking.nameLabel}
+                    </label>
+                    <input
+                      id="booking-name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder={t.booking.namePlaceholder}
+                      className="hairline tap-target mt-2 w-full rounded-xl border bg-white px-4 text-sm text-foreground outline-none focus:border-ink"
+                    />
+                    {errors.name && <p className="mt-1 text-xs text-red-600">{errors.name}</p>}
+                  </div>
+
+                  <div>
+                    <label className="text-sm font-medium text-foreground" htmlFor="booking-phone">
+                      {t.booking.phoneLabel}
+                    </label>
+                    <input
+                      id="booking-phone"
+                      type="tel"
+                      dir="ltr"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder={t.booking.phonePlaceholder}
+                      className="hairline tap-target mt-2 w-full rounded-xl border bg-white px-4 text-sm text-foreground outline-none focus:border-ink"
+                    />
+                    {errors.phone && <p className="mt-1 text-xs text-red-600">{errors.phone}</p>}
+                  </div>
                 </div>
 
-                <div>
-                  <label className="text-sm font-medium text-foreground" htmlFor="booking-phone">
-                    {t.booking.phoneLabel}
-                  </label>
-                  <input
-                    id="booking-phone"
-                    type="tel"
-                    dir="ltr"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    placeholder={t.booking.phonePlaceholder}
-                    className="hairline tap-target mt-2 w-full rounded-xl border bg-white px-4 text-sm text-foreground outline-none focus:border-ink"
-                  />
-                  {errors.phone && <p className="mt-1 text-xs text-red-600">{errors.phone}</p>}
-                </div>
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <div>
+                    <label className="text-sm font-medium text-foreground" htmlFor="booking-service">
+                      {t.booking.serviceLabel}
+                    </label>
+                    <select
+                      id="booking-service"
+                      value={service}
+                      onChange={(e) => setService(e.target.value)}
+                      className="hairline tap-target mt-2 w-full rounded-xl border bg-white px-4 text-sm text-foreground outline-none focus:border-ink"
+                    >
+                      <option value="">{t.booking.servicePlaceholder}</option>
+                      {serviceOptions.map((s) => (
+                        <option key={s.slug} value={s.slug}>
+                          {locale === "ar" ? s.labelAr : s.labelEn}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.service && <p className="mt-1 text-xs text-red-600">{errors.service}</p>}
+                  </div>
 
-                <div>
-                  <label className="text-sm font-medium text-foreground" htmlFor="booking-service">
-                    {t.booking.serviceLabel}
-                  </label>
-                  <select
-                    id="booking-service"
-                    value={service}
-                    onChange={(e) => setService(e.target.value)}
-                    className="hairline tap-target mt-2 w-full rounded-xl border bg-white px-4 text-sm text-foreground outline-none focus:border-ink"
-                  >
-                    <option value="">{t.booking.servicePlaceholder}</option>
-                    {serviceOptions.map((s) => (
-                      <option key={s.slug} value={s.slug}>
-                        {locale === "ar" ? s.labelAr : s.labelEn}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.service && <p className="mt-1 text-xs text-red-600">{errors.service}</p>}
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium text-foreground" htmlFor="booking-date">
-                    {t.booking.dateLabel}
-                  </label>
-                  <input
-                    id="booking-date"
-                    type="date"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                    className="hairline tap-target mt-2 w-full rounded-xl border bg-white px-4 text-sm text-foreground outline-none focus:border-ink"
-                  />
+                  <div>
+                    <label className="text-sm font-medium text-foreground" htmlFor="booking-date">
+                      {t.booking.dateLabel}
+                    </label>
+                    <input
+                      id="booking-date"
+                      type="date"
+                      value={date}
+                      onChange={(e) => setDate(e.target.value)}
+                      className="hairline tap-target mt-2 w-full rounded-xl border bg-white px-4 text-sm text-foreground outline-none focus:border-ink"
+                    />
+                  </div>
                 </div>
 
                 <button
                   type="submit"
-                  className="tap-target mt-2 rounded-full bg-ink px-6 text-sm font-medium text-white transition-opacity hover:opacity-85"
+                  className="tap-target mt-2 w-full rounded-full bg-ink px-6 text-sm font-medium text-white transition-opacity hover:opacity-85"
                 >
                   {t.booking.submit}
                 </button>

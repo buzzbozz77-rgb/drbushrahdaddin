@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Inter, Inter_Tight, IBM_Plex_Sans_Arabic } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MobileActionBar from "@/components/MobileActionBar";
-import WhatsAppFloat from "@/components/WhatsAppFloat";
+import BookingAssistant from "@/components/BookingAssistant";
 import { LocaleProvider, noFlashLocaleScript } from "@/components/LocaleProvider";
 
 const inter = Inter({
@@ -42,10 +43,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <div className="bg-layer hero-deep-blue" aria-hidden />
         <LocaleProvider>
+          <Navbar />
           <main className="flex-1 pb-20 md:pb-0">{children}</main>
           <Footer />
           <MobileActionBar />
-          <WhatsAppFloat />
+          <BookingAssistant />
         </LocaleProvider>
       </body>
     </html>

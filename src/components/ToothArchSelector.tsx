@@ -1,30 +1,41 @@
 "use client";
 
-// Tooth regions were calibrated against the real arch photo
-// (assets-src/crystal-renders/full-smile-arch.jpg, 1600x900) using OpenCV
-// contour detection on the lower row, mirrored to the upper row. The SVG
-// viewBox matches the photo's own pixel space 1:1, so each region sits
-// exactly over its real tooth with no offset.
+// Tooth regions were calibrated against the real merged arch photo
+// (public/arch/arch-merged.webp, composited from two real crystal-tooth
+// renders via a lighten blend — see assets-src/hero-v3) using OpenCV
+// contour detection, then hand-completed for the two front teeth the
+// detector missed (verified against a debug overlay before shipping).
+// The SVG viewBox matches the photo's own pixel space 1:1, so each region
+// sits exactly over its real tooth with no offset.
 const IMAGE_W = 1600;
-const IMAGE_H = 900;
-const IMAGE_SRC = "/services/full-smile-arch.webp";
+const IMAGE_H = 1217;
+const IMAGE_SRC = "/arch/arch-merged.webp";
 const SELECT_COLOR = "#ffb020";
 
-const LOWER_BOXES: [number, number, number, number][] = [
-  [317, 491, 86, 134],
-  [411, 491, 91, 178],
-  [527, 510, 113, 165],
-  [659, 508, 129, 179],
-  [811, 509, 131, 178],
-  [948, 510, 122, 155],
-  [1096, 486, 95, 183],
-  [1201, 493, 90, 131],
-  [1309, 540, 90, 145],
+const UPPER_BOXES: [number, number, number, number][] = [
+  [77, 280, 64, 195],
+  [137, 294, 82, 212],
+  [281, 334, 116, 247],
+  [432, 351, 106, 244],
+  [538, 335, 261, 250],
+  [799, 335, 261, 250],
+  [1060, 350, 106, 247],
+  [1208, 332, 109, 253],
+  [1382, 307, 74, 198],
 ];
 
-const UPPER_BOXES: [number, number, number, number][] = LOWER_BOXES.map(
-  ([x, , w]) => [x, 258, w, 195]
-);
+const LOWER_BOXES: [number, number, number, number][] = [
+  [108, 718, 85, 165],
+  [198, 652, 105, 184],
+  [322, 591, 116, 241],
+  [483, 604, 128, 197],
+  [648, 569, 139, 227],
+  [821, 569, 140, 227],
+  [997, 607, 122, 194],
+  [1162, 591, 116, 241],
+  [1287, 653, 117, 181],
+  [1404, 717, 82, 194],
+];
 
 export type ToothId = `${"upper" | "lower"}-${number}`;
 
@@ -37,7 +48,7 @@ export default function ToothArchSelector({
   onToggle: (id: ToothId) => void;
   toothLabel: (id: ToothId) => string;
 }) {
-  const arches: { arch: "upper" | "lower"; boxes: typeof LOWER_BOXES }[] = [
+  const arches: { arch: "upper" | "lower"; boxes: typeof UPPER_BOXES }[] = [
     { arch: "upper", boxes: UPPER_BOXES },
     { arch: "lower", boxes: LOWER_BOXES },
   ];
@@ -60,7 +71,7 @@ export default function ToothArchSelector({
           const rx = w * 0.3;
           const cx = x + w / 2;
           const cy = y + h / 2;
-          const badgeR = Math.min(w, h) * 0.22;
+          const badgeR = Math.min(w, h) * 0.18;
 
           return (
             <g key={id}>

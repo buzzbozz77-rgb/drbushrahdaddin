@@ -61,7 +61,7 @@ export default function SmileJourneyPlanner() {
   }, [t, selectedGoal, selectedMethod, selectedPatientType, teethList, locale]);
 
   return (
-    <section className="px-3 py-10 md:px-6 md:py-16">
+    <section id="plan" className="px-3 py-10 md:px-6 md:py-16">
       <div className="mx-auto max-w-[1320px]">
         <Reveal>
           <h2 className="font-display text-heading-lg text-center text-white">
