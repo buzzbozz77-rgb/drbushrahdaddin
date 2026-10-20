@@ -82,7 +82,7 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`navbar-solid fixed inset-x-3 top-3 z-50 rounded-full transition-all duration-300 md:inset-x-6 ${
+        className={`navbar-solid fixed inset-x-3 top-3 z-[60] rounded-full transition-all duration-300 md:inset-x-6 ${
           scrolled ? "py-1.5 md:py-2" : "py-2.5 md:py-3.5"
         }`}
       >
@@ -137,7 +137,7 @@ export default function Navbar() {
 
       <div
         ref={menuRef}
-        className="hero-deep-blue fixed inset-0 z-40 hidden flex-col items-center justify-center gap-8 lg:hidden"
+        className="hero-deep-blue fixed inset-0 z-[55] hidden flex-col items-center justify-center gap-8 lg:hidden"
         style={{ display: "none" }}
       >
         {navLinks.map((link) => (

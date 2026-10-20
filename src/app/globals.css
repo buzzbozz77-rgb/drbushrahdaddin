@@ -167,10 +167,10 @@ html[dir="rtl"] .font-display {
 }
 
 .navbar-solid {
-  background: rgba(10, 23, 94, 0.88);
+  background: rgba(10, 23, 94, 0.93);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .scroll-mt-nav {
