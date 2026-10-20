@@ -53,10 +53,10 @@ function StatCounter({
 
   return (
     <div>
-      <div ref={ref} className="font-display text-heading text-foreground">
+      <div ref={ref} className="font-display text-heading text-white">
         0{suffix}
       </div>
-      <div className="mt-1 text-sm text-muted-soft">{label}</div>
+      <div className="mt-1 text-sm text-white/60">{label}</div>
     </div>
   );
 }
@@ -67,7 +67,7 @@ export default function CountStats() {
   if (entries.length === 0) return null;
 
   return (
-    <div className="mt-16 grid grid-cols-2 gap-8 border-t border-border pt-10 sm:grid-cols-4">
+    <div className="mt-16 grid grid-cols-2 gap-8 border-t border-white/15 pt-10 sm:grid-cols-4">
       {entries.map((stat) => (
         <StatCounter
           key={stat.id}

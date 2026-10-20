@@ -13,15 +13,15 @@ export default function Gallery() {
   return (
     <section id="gallery" className="scroll-mt-nav mx-auto max-w-[1200px] px-6 py-24 md:py-32">
       <Reveal>
-        <h2 className="font-display text-heading text-foreground">{t.gallery.heading}</h2>
-        <p className="mt-3 max-w-xl text-muted">{t.gallery.subheading}</p>
+        <h2 className="font-display text-heading text-white">{t.gallery.heading}</h2>
+        <p className="mt-3 max-w-xl text-white/70">{t.gallery.subheading}</p>
       </Reveal>
 
       <div className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-3">
         {gallery.length === 0
           ? Array.from({ length: PLACEHOLDER_SLOTS }).map((_, i) => (
               <Reveal key={i} delay={i * 0.05}>
-                <div className="hairline aspect-square rounded-xl border border-dashed" />
+                <div className="aspect-square rounded-xl border border-dashed border-white/25" />
               </Reveal>
             ))
           : gallery.map((item, i) => (

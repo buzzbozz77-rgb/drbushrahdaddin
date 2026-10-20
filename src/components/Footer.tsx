@@ -36,48 +36,48 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="rounded-t-[32px] bg-white py-12 md:rounded-t-[40px]">
+    <footer className="rounded-t-[32px] py-12 md:rounded-t-[40px]" style={{ backgroundColor: "#0c1c66" }}>
       <div className="mx-auto max-w-[1200px] px-6">
         <div className="grid gap-10 sm:grid-cols-3">
           <div>
-            <p className="font-display text-base text-foreground">{doctor.shortName}</p>
-            <p className="mt-2 max-w-[16rem] text-sm text-muted-soft">
+            <p className="font-display text-base text-white">{doctor.shortName}</p>
+            <p className="mt-2 max-w-[16rem] text-sm text-white/60">
               {locale === "ar" ? contact.cityAr : contact.city}
             </p>
             {contact.streetAddress && (
-              <p className="mt-1 text-sm text-muted-soft">
+              <p className="mt-1 text-sm text-white/60">
                 {locale === "ar" ? contact.streetAddressAr : contact.streetAddress}
               </p>
             )}
           </div>
 
           <div>
-            <p className="text-xs font-medium uppercase tracking-wide text-muted-soft">
+            <p className="text-xs font-medium uppercase tracking-wide text-white/50">
               {t.nav.contact}
             </p>
             <ul className="mt-3 space-y-2 text-sm">
               <li>
-                <a href={contact.phoneHref} dir="ltr" className="tap-area text-muted hover:text-foreground">
+                <a href={contact.phoneHref} dir="ltr" className="tap-area text-white/75 hover:text-white">
                   {contact.phoneDisplay}
                 </a>
               </li>
               <li>
                 <a
                   href={`https://wa.me/${contact.whatsappNumber}`}
-                  className="tap-area text-muted hover:text-foreground"
+                  className="tap-area text-white/75 hover:text-white"
                 >
                   {t.contact.whatsapp}
                 </a>
               </li>
               <li>
-                <a href={contact.mapsHref} className="tap-area text-muted hover:text-foreground">
+                <a href={contact.mapsHref} className="tap-area text-white/75 hover:text-white">
                   {t.contact.directions}
                 </a>
               </li>
             </ul>
 
             {contact.hours && (
-              <ul className="mt-4 space-y-1 text-xs text-muted-soft">
+              <ul className="mt-4 space-y-1 text-xs text-white/50">
                 {contact.hours.map((h) => (
                   <li key={h.dayEn}>
                     {locale === "ar" ? h.dayAr : h.dayEn}: {h.hours}
@@ -88,13 +88,13 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="text-xs font-medium uppercase tracking-wide text-muted-soft">
+            <p className="text-xs font-medium uppercase tracking-wide text-white/50">
               {t.nav.about}
             </p>
             <ul className="mt-3 space-y-2 text-sm">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="tap-area text-muted hover:text-foreground">
+                  <a href={link.href} className="tap-area text-white/75 hover:text-white">
                     {link.label}
                   </a>
                 </li>
@@ -103,7 +103,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="hairline mt-10 flex flex-col items-center justify-between gap-4 border-t pt-6 text-xs text-muted-soft sm:flex-row">
+        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/15 pt-6 text-xs text-white/50 sm:flex-row">
           <span>© {doctor.fullName}</span>
           <div className="flex gap-4">
             {Object.values(socialLinks).map((social) => {
@@ -113,7 +113,7 @@ export default function Footer() {
                   key={social.label}
                   href={social.href}
                   aria-label={social.label}
-                  className="tap-area text-muted-soft transition-colors hover:text-foreground"
+                  className="tap-area text-white/60 transition-colors hover:text-white"
                 >
                   {Icon ? <Icon /> : social.label}
                 </a>

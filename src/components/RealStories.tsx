@@ -21,12 +21,12 @@ export default function RealStories() {
 
   return (
     <section id="testimonials" className="scroll-mt-nav px-3 py-6 md:px-6 md:py-10">
-      <div className="mx-auto max-w-[1200px] rounded-[32px] bg-white px-6 py-14 md:rounded-[40px] md:px-12 md:py-20">
+      <div className="glass-on-blue mx-auto max-w-[1200px] rounded-[32px] px-6 py-14 md:rounded-[40px] md:px-12 md:py-20">
         <Reveal>
-          <h2 className="font-display text-heading-lg text-center text-foreground">
+          <h2 className="font-display text-heading-lg text-center text-white">
             {t.stories.heading}
           </h2>
-          <p className="mt-2 text-center text-muted">{t.stories.subheading}</p>
+          <p className="mt-2 text-center text-white/70">{t.stories.subheading}</p>
         </Reveal>
 
         <Reveal delay={0.08} className="mt-8 flex flex-wrap justify-center gap-2">
@@ -37,8 +37,8 @@ export default function RealStories() {
               onClick={() => setActiveTab(tab.slug)}
               className={`tap-target rounded-full border px-4 text-sm font-medium transition-colors ${
                 activeTab === tab.slug
-                  ? "border-ink bg-ink text-white"
-                  : "border-border text-muted hover:text-foreground"
+                  ? "border-white bg-white text-ink"
+                  : "border-white/30 text-white/70 hover:border-white/60 hover:text-white"
               }`}
             >
               {tab.label}
@@ -47,22 +47,22 @@ export default function RealStories() {
         </Reveal>
 
         {filtered.length === 0 ? (
-          <p className="mt-12 text-center text-sm text-muted-soft">{t.stories.empty}</p>
+          <p className="mt-12 text-center text-sm text-white/60">{t.stories.empty}</p>
         ) : (
           <div className="mt-12 grid gap-4 md:grid-cols-3">
             {filtered.map((testimonial, index) => (
               <Reveal key={index} delay={index * 0.08} className="h-full">
-                <figure className="hairline flex h-full flex-col justify-between rounded-2xl border p-7">
+                <figure className="flex h-full flex-col justify-between rounded-2xl border border-white/15 bg-white/5 p-7">
                   <blockquote
                     dir={testimonial.lang === "ar" ? "rtl" : "ltr"}
-                    className={`text-base leading-relaxed text-foreground ${
+                    className={`text-base leading-relaxed text-white/90 ${
                       testimonial.lang === "ar" ? "text-right" : "text-left"
                     }`}
                   >
                     &ldquo;{testimonial.quote}&rdquo;
                   </blockquote>
                   {testimonial.author && (
-                    <figcaption className="mt-6 text-xs font-medium uppercase tracking-wide text-muted-soft">
+                    <figcaption className="mt-6 text-xs font-medium uppercase tracking-wide text-white/50">
                       {testimonial.author}
                     </figcaption>
                   )}
@@ -80,8 +80,8 @@ export default function RealStories() {
               ))}
             </div>
           ) : (
-            <div className="hairline flex aspect-[21/9] items-center justify-center rounded-2xl border border-dashed">
-              <p className="max-w-sm text-center text-sm text-muted-soft">
+            <div className="flex aspect-[21/9] items-center justify-center rounded-2xl border border-dashed border-white/25">
+              <p className="max-w-sm text-center text-sm text-white/60">
                 {t.stories.beforeAfterPlaceholder}
               </p>
             </div>
