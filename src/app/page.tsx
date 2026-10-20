@@ -5,7 +5,6 @@ import MeetTheTeam from "@/components/MeetTheTeam";
 import SmileJourneyPlanner from "@/components/SmileJourneyPlanner";
 import RealStories from "@/components/RealStories";
 import BookingForm from "@/components/BookingForm";
-import Contact from "@/components/Contact";
 
 // Gallery is built and ready (src/components/Gallery.tsx) — re-add it here
 // once Dr. Bushra sends real case photos. An empty placeholder grid reads as
@@ -21,7 +20,6 @@ export default function Home() {
       <SmileJourneyPlanner />
       <RealStories />
       <BookingForm />
-      <Contact />
     </>
   );
 }

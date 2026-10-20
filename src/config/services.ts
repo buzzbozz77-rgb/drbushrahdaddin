@@ -16,6 +16,51 @@ export const serviceOptions: ServiceOption[] = [
   { slug: "veneers-implants", labelEn: "Veneers & Implants", labelAr: "فينير وزراعة الأسنان" },
 ];
 
+// Short, descriptive copy for the Services cards — deliberately general
+// (no outcome promises or medical claims). needsReview: true on every entry
+// because this wording is a draft and has NOT been confirmed by Dr. Bushra —
+// please review and edit before this goes live.
+export type ServiceDescription = {
+  slug: ServiceOption["slug"];
+  descEn: string;
+  descAr: string;
+  needsReview: boolean;
+};
+
+export const serviceDescriptions: ServiceDescription[] = [
+  {
+    slug: "cosmetic-dentistry",
+    descEn:
+      "Smile design, porcelain veneers, and professional whitening — planned around your facial proportions and the shade and shape that suit you.",
+    descAr:
+      "تصميم ابتسامة، فينير خزفي، وتبييض احترافي — بتخطيط يراعي تناسق ملامح وجهك واللون والشكل المناسبين لك.",
+    needsReview: true,
+  },
+  {
+    slug: "dental-oral-surgery",
+    descEn:
+      "Surgical and minor oral procedures carried out in a controlled clinical setting, following standard sterilization and safety protocols.",
+    descAr:
+      "إجراءات جراحية وعلاجات فموية بسيطة تتم ضمن بيئة عيادة مجهزة، وفق بروتوكولات تعقيم وسلامة معتمدة.",
+    needsReview: true,
+  },
+  {
+    slug: "botox-fillers",
+    descEn:
+      "Botox and dermal filler treatments administered by appointment, discussed and planned together before any procedure.",
+    descAr: "جلسات بوتوكس وفيلر تتم بموعد مسبق، وبالتشاور الكامل معك قبل أي إجراء.",
+    needsReview: true,
+  },
+  {
+    slug: "veneers-implants",
+    descEn:
+      "Veneers and dental implants using modern materials, with each case assessed individually before a treatment plan is proposed.",
+    descAr:
+      "فينير وزراعة أسنان باستخدام مواد حديثة، وكل حالة تُقيَّم بشكل فردي قبل اقتراح خطة العلاج.",
+    needsReview: true,
+  },
+];
+
 export type PlannerGoal = {
   id: string;
   labelEn: string;

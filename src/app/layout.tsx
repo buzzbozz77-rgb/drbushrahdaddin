@@ -40,6 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: noFlashLocaleScript }} />
       </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        <div className="bg-layer hero-deep-blue" aria-hidden />
         <LocaleProvider>
           <main className="flex-1 pb-20 md:pb-0">{children}</main>
           <Footer />

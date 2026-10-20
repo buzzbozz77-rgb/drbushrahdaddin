@@ -11,12 +11,6 @@ export const doctor = {
   credentials: ["JUST", "RCSI", "American Aesthetic Assoc.", "German ER Drs"],
 };
 
-export const socials = {
-  instagram: { label: "Instagram", href: "https://instagram.com/dr.bushraa" },
-  threads: { label: "Threads", href: "https://www.threads.net/@dr.bushraa" },
-  facebook: { label: "Facebook", href: "https://facebook.com" },
-};
-
 export const serviceSlugs = [
   "cosmetic-dentistry",
   "dental-oral-surgery",

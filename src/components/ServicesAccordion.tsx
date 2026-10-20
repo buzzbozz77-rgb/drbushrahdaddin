@@ -32,7 +32,7 @@ export default function ServicesAccordion({ items }: { items: Item[] }) {
       {items.map((item, i) => {
         const isOpen = i === open;
         return (
-          <div key={item.slug} className="hero-deep-blue relative overflow-hidden rounded-3xl">
+          <div key={item.slug} className="glass-on-blue relative overflow-hidden rounded-3xl">
             <Image
               src={item.image}
               alt=""

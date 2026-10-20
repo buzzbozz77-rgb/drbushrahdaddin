@@ -8,7 +8,7 @@
   --color-ink: #10131a;
   --color-ink-soft: #1a1f29;
   --color-muted: #525a68;
-  --color-muted-soft: #78808f;
+  --color-muted-soft: #566072;
   --color-blue: #2a5fd9;
   --color-blue-soft: #e5edfb;
   --color-hairline: #e3e8f0;
@@ -47,9 +47,16 @@
 }
 
 body {
-  background: var(--background);
+  background: var(--color-blue-deep-1);
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  pointer-events: none;
 }
 
 html[dir="rtl"] body {
@@ -111,12 +118,12 @@ html[dir="rtl"] .font-display {
 }
 
 .hero-deep-blue {
-  background: radial-gradient(
-      ellipse 120% 90% at 50% 0%,
-      var(--color-blue-deep-2) 0%,
-      var(--color-blue-deep-1) 55%,
-      var(--color-blue-deep-3) 100%
-    );
+  background: linear-gradient(
+    180deg,
+    var(--color-blue-deep-3) 0%,
+    var(--color-blue-deep-1) 45%,
+    var(--color-blue-deep-2) 100%
+  );
 }
 
 .glass {

@@ -13,11 +13,11 @@ export default function Hero() {
     { href: "#about", label: t.nav.about },
     { href: "#services", label: t.nav.services },
     { href: "#testimonials", label: t.nav.testimonials },
-    { href: "#contact", label: t.nav.contact },
+    { href: "#book", label: t.nav.contact },
   ];
 
   return (
-    <section className="hero-deep-blue px-3 pt-4 pb-10 md:px-6 md:pt-6 md:pb-16">
+    <section className="px-3 pt-4 pb-10 md:px-6 md:pt-6 md:pb-16">
       <div className="relative mx-auto max-w-[1320px] rounded-[32px] bg-white px-5 py-6 md:rounded-[40px] md:px-10 md:py-8">
         <nav className="flex items-center justify-between">
           <span className="font-display text-lg text-foreground">{doctor.shortName}</span>

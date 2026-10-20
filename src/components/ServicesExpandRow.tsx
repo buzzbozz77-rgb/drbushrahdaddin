@@ -56,7 +56,7 @@ export default function ServicesExpandRow({ items }: { items: Item[] }) {
           role="button"
           tabIndex={0}
           style={{ flexBasis: `${60 / (items.length - 1)}%` }}
-          className="hero-deep-blue relative min-w-0 shrink-0 cursor-pointer overflow-hidden rounded-[28px]"
+          className="glass-on-blue relative min-w-0 shrink-0 cursor-pointer overflow-hidden rounded-[28px]"
         >
           <Image
             src={item.image}

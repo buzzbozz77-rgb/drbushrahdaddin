@@ -44,117 +44,142 @@ export default function BookingForm() {
     setSubmitted(true);
   };
 
-  const decorations = [
-    { src: "/services/cutouts/tooth-molar.png", className: "-left-10 -top-10 w-24", delay: "0s" },
-    { src: "/services/cutouts/droplet.png", className: "-right-8 top-10 w-16", delay: "-2s" },
-    { src: "/services/cutouts/whitening-glow.png", className: "-bottom-10 left-1/4 w-20", delay: "-4s" },
-  ];
-
   return (
-    <section id="book" className="mx-auto max-w-[1320px] px-3 py-10 md:px-6 md:py-16">
-      <Reveal>
-        <h2 className="font-display text-heading-lg text-center text-foreground">
-          {t.booking.heading}
-        </h2>
-        <p className="mx-auto mt-3 max-w-xl text-center text-muted">{t.booking.subheading}</p>
-      </Reveal>
+    <section id="book" className="px-3 py-10 md:px-6 md:py-16">
+      <div className="mx-auto max-w-[1320px]">
+        <Reveal>
+          <h2 className="font-display text-heading-lg text-center text-white">
+            {t.booking.heading}
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-center text-white/70">
+            {t.booking.subheading}
+          </p>
+        </Reveal>
 
-      <Reveal delay={0.1} className="relative mx-auto mt-12 max-w-xl">
-        {decorations.map((d) => (
+        <Reveal delay={0.1} className="relative mx-auto mt-16 max-w-xl">
           <div
-            key={d.src}
             aria-hidden
-            className={`animate-float-slow pointer-events-none absolute opacity-70 ${d.className}`}
-            style={{ animationDelay: d.delay }}
+            className="animate-float-slow pointer-events-none absolute -top-14 -left-10 w-40 opacity-90 sm:w-52"
           >
-            <Image src={d.src} alt="" width={200} height={200} className="h-auto w-full" />
+            <Image
+              src="/services/cutouts/full-smile-arch.png"
+              alt=""
+              width={400}
+              height={300}
+              className="h-auto w-full drop-shadow-xl"
+            />
           </div>
-        ))}
+          <div
+            aria-hidden
+            className="animate-float-slow pointer-events-none absolute -bottom-12 -right-8 w-24 opacity-90 sm:w-28"
+            style={{ animationDelay: "-3s" }}
+          >
+            <Image
+              src="/services/cutouts/tooth-molar.png"
+              alt=""
+              width={300}
+              height={400}
+              className="h-auto w-full drop-shadow-xl"
+            />
+          </div>
 
-        <div className="hairline relative rounded-[28px] border bg-surface p-6 md:p-10">
-          {submitted ? (
-            <div className="flex flex-col items-center py-10 text-center">
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-ink text-white">
-                ✓
-              </span>
-              <p className="mt-4 font-display text-lg text-foreground">{t.booking.successTitle}</p>
-              <p className="mt-2 max-w-sm text-sm text-muted">{t.booking.successBody}</p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
-              <div>
-                <label className="text-sm font-medium text-foreground" htmlFor="booking-name">
-                  {t.booking.nameLabel}
-                </label>
-                <input
-                  id="booking-name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder={t.booking.namePlaceholder}
-                  className="hairline tap-target mt-2 w-full rounded-xl border bg-background px-4 text-sm text-foreground outline-none focus:border-ink"
-                />
-                {errors.name && <p className="mt-1 text-xs text-red-600">{errors.name}</p>}
+          <div className="relative rounded-[28px] border border-white/40 bg-white/92 p-6 shadow-xl backdrop-blur-md md:p-10">
+            {submitted ? (
+              <div className="flex flex-col items-center py-10 text-center">
+                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-ink text-white">
+                  ✓
+                </span>
+                <p className="mt-4 font-display text-lg text-foreground">{t.booking.successTitle}</p>
+                <p className="mt-2 max-w-sm text-sm text-muted">{t.booking.successBody}</p>
               </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
+                <div>
+                  <label className="text-sm font-medium text-foreground" htmlFor="booking-name">
+                    {t.booking.nameLabel}
+                  </label>
+                  <input
+                    id="booking-name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder={t.booking.namePlaceholder}
+                    className="hairline tap-target mt-2 w-full rounded-xl border bg-white px-4 text-sm text-foreground outline-none focus:border-ink"
+                  />
+                  {errors.name && <p className="mt-1 text-xs text-red-600">{errors.name}</p>}
+                </div>
 
-              <div>
-                <label className="text-sm font-medium text-foreground" htmlFor="booking-phone">
-                  {t.booking.phoneLabel}
-                </label>
-                <input
-                  id="booking-phone"
-                  type="tel"
-                  dir="ltr"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder={t.booking.phonePlaceholder}
-                  className="hairline tap-target mt-2 w-full rounded-xl border bg-background px-4 text-sm text-foreground outline-none focus:border-ink"
-                />
-                {errors.phone && <p className="mt-1 text-xs text-red-600">{errors.phone}</p>}
-              </div>
+                <div>
+                  <label className="text-sm font-medium text-foreground" htmlFor="booking-phone">
+                    {t.booking.phoneLabel}
+                  </label>
+                  <input
+                    id="booking-phone"
+                    type="tel"
+                    dir="ltr"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder={t.booking.phonePlaceholder}
+                    className="hairline tap-target mt-2 w-full rounded-xl border bg-white px-4 text-sm text-foreground outline-none focus:border-ink"
+                  />
+                  {errors.phone && <p className="mt-1 text-xs text-red-600">{errors.phone}</p>}
+                </div>
 
-              <div>
-                <label className="text-sm font-medium text-foreground" htmlFor="booking-service">
-                  {t.booking.serviceLabel}
-                </label>
-                <select
-                  id="booking-service"
-                  value={service}
-                  onChange={(e) => setService(e.target.value)}
-                  className="hairline tap-target mt-2 w-full rounded-xl border bg-background px-4 text-sm text-foreground outline-none focus:border-ink"
+                <div>
+                  <label className="text-sm font-medium text-foreground" htmlFor="booking-service">
+                    {t.booking.serviceLabel}
+                  </label>
+                  <select
+                    id="booking-service"
+                    value={service}
+                    onChange={(e) => setService(e.target.value)}
+                    className="hairline tap-target mt-2 w-full rounded-xl border bg-white px-4 text-sm text-foreground outline-none focus:border-ink"
+                  >
+                    <option value="">{t.booking.servicePlaceholder}</option>
+                    {serviceOptions.map((s) => (
+                      <option key={s.slug} value={s.slug}>
+                        {locale === "ar" ? s.labelAr : s.labelEn}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.service && <p className="mt-1 text-xs text-red-600">{errors.service}</p>}
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-foreground" htmlFor="booking-date">
+                    {t.booking.dateLabel}
+                  </label>
+                  <input
+                    id="booking-date"
+                    type="date"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                    className="hairline tap-target mt-2 w-full rounded-xl border bg-white px-4 text-sm text-foreground outline-none focus:border-ink"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="tap-target mt-2 rounded-full bg-ink px-6 text-sm font-medium text-white transition-opacity hover:opacity-85"
                 >
-                  <option value="">{t.booking.servicePlaceholder}</option>
-                  {serviceOptions.map((s) => (
-                    <option key={s.slug} value={s.slug}>
-                      {locale === "ar" ? s.labelAr : s.labelEn}
-                    </option>
-                  ))}
-                </select>
-                {errors.service && <p className="mt-1 text-xs text-red-600">{errors.service}</p>}
-              </div>
+                  {t.booking.submit}
+                </button>
+              </form>
+            )}
 
-              <div>
-                <label className="text-sm font-medium text-foreground" htmlFor="booking-date">
-                  {t.booking.dateLabel}
-                </label>
-                <input
-                  id="booking-date"
-                  type="date"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                  className="hairline tap-target mt-2 w-full rounded-xl border bg-background px-4 text-sm text-foreground outline-none focus:border-ink"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="tap-target mt-2 rounded-full bg-ink px-6 text-sm font-medium text-white transition-opacity hover:opacity-85"
+            <div className="hairline mt-8 flex items-center justify-center gap-6 border-t pt-6 text-sm">
+              <a
+                href={`https://wa.me/${contact.whatsappNumber}`}
+                className="text-muted hover:text-foreground"
               >
-                {t.booking.submit}
-              </button>
-            </form>
-          )}
-        </div>
-      </Reveal>
+                {t.contact.whatsapp}
+              </a>
+              <a href={contact.mapsHref} className="text-muted hover:text-foreground">
+                {t.contact.directions}
+              </a>
+            </div>
+          </div>
+        </Reveal>
+      </div>
     </section>
   );
 }

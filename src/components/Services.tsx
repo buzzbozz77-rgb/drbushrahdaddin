@@ -1,6 +1,7 @@
 "use client";
 
 import { serviceSlugs } from "@/lib/content";
+import { serviceDescriptions } from "@/config/services";
 import { useLocale } from "@/components/LocaleProvider";
 import Reveal from "@/components/Reveal";
 import ServicesExpandRow from "@/components/ServicesExpandRow";
@@ -14,31 +15,38 @@ const images: Record<(typeof serviceSlugs)[number], string> = {
 };
 
 export default function Services() {
-  const { t } = useLocale();
+  const { locale, t } = useLocale();
 
-  const items = serviceSlugs.map((slug, i) => ({
-    slug,
-    image: images[slug],
-    name: t.services.items[i].name,
-    description: t.services.items[i].description,
-  }));
+  const items = serviceSlugs.map((slug, i) => {
+    const desc = serviceDescriptions.find((d) => d.slug === slug);
+    return {
+      slug,
+      image: images[slug],
+      name: t.services.items[i].name,
+      description: desc ? (locale === "ar" ? desc.descAr : desc.descEn) : "",
+    };
+  });
 
   return (
-    <section id="services" className="mx-auto max-w-[1320px] px-3 py-10 md:px-6 md:py-16">
-      <Reveal>
-        <h2 className="font-display text-heading-lg text-center text-foreground">
-          {t.services.heading}
-        </h2>
-        <p className="mx-auto mt-3 max-w-xl text-center text-muted">{t.services.subheading}</p>
-      </Reveal>
+    <section id="services" className="px-3 py-10 md:px-6 md:py-16">
+      <div className="mx-auto max-w-[1320px]">
+        <Reveal>
+          <h2 className="font-display text-heading-lg text-center text-white">
+            {t.services.heading}
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-center text-white/70">
+            {t.services.subheading}
+          </p>
+        </Reveal>
 
-      <Reveal delay={0.1} className="mt-12 hidden lg:block">
-        <ServicesExpandRow items={items} />
-      </Reveal>
+        <Reveal delay={0.1} className="mt-12 hidden lg:block">
+          <ServicesExpandRow items={items} />
+        </Reveal>
 
-      <Reveal delay={0.1} className="mt-10 lg:hidden">
-        <ServicesAccordion items={items} />
-      </Reveal>
+        <Reveal delay={0.1} className="mt-10 lg:hidden">
+          <ServicesAccordion items={items} />
+        </Reveal>
+      </div>
     </section>
   );
 }

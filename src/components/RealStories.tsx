@@ -20,8 +20,8 @@ export default function RealStories() {
     activeTab === "all" ? testimonials : testimonials.filter((s) => s.category === activeTab);
 
   return (
-    <section id="testimonials" className="hairline border-t bg-surface py-24 md:py-32">
-      <div className="mx-auto max-w-[1200px] px-6">
+    <section id="testimonials" className="px-3 py-6 md:px-6 md:py-10">
+      <div className="mx-auto max-w-[1200px] rounded-[32px] bg-white px-6 py-14 md:rounded-[40px] md:px-12 md:py-20">
         <Reveal>
           <h2 className="font-display text-heading-lg text-center text-foreground">
             {t.stories.heading}
