@@ -62,8 +62,27 @@ export type BeforeAfterPair = {
   after: string;
   altBefore: string;
   altAfter: string;
+  // Native pixel size of each half — lets the slider cap its display size so
+  // a small source photo is never upscaled past its own resolution (blurry).
+  width: number;
+  height: number;
 };
 
-// Add real, clearly-paired before/after photos here once provided — e.g.
-// { before: "/case-photos/case-1-before.jpg", after: "/case-photos/case-1-after.jpg", ... }
-export const beforeAfterPairs: BeforeAfterPair[] = [];
+export const beforeAfterPairs: BeforeAfterPair[] = [
+  {
+    before: "/photos/before-after-selfie-before.webp",
+    after: "/photos/before-after-selfie-after.webp",
+    altBefore: "Teeth before whitening",
+    altAfter: "Teeth after whitening",
+    width: 240,
+    height: 480,
+  },
+  {
+    before: "/photos/before-after-clinical-before.webp",
+    after: "/photos/before-after-clinical-after.webp",
+    altBefore: "Teeth before treatment, clinical view",
+    altAfter: "Teeth after treatment, clinical view",
+    width: 1600,
+    height: 445,
+  },
+];

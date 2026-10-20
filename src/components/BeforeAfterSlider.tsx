@@ -20,7 +20,8 @@ export default function BeforeAfterSlider({ pair }: { pair: BeforeAfterPair }) {
   return (
     <div
       ref={trackRef}
-      className="relative aspect-[4/3] w-full touch-none select-none overflow-hidden rounded-2xl"
+      className="relative mx-auto w-full touch-none select-none overflow-hidden rounded-2xl"
+      style={{ aspectRatio: `${pair.width} / ${pair.height}`, maxWidth: pair.width }}
       onPointerDown={(e) => {
         dragging.current = true;
         (e.target as Element).setPointerCapture?.(e.pointerId);
