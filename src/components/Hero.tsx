@@ -145,13 +145,19 @@ export default function Hero() {
           </div>
         </Reveal>
 
-        <Reveal delay={0.15} className="relative order-1 mx-auto aspect-[16/9] w-full max-w-2xl lg:order-2">
+        <Reveal
+          delay={0.15}
+          className="relative order-1 mx-auto aspect-[16/9] w-full max-w-2xl overflow-hidden rounded-[28px] lg:order-2"
+        >
+          {/* Scaled up ~1.3x so the hand/tooth reads bigger in frame — the
+              container (and so the chips' % positions below) keeps its size,
+              this just zooms/clips the photo itself. */}
           <Image
             src="/hero/dentist-tooth.webp"
             alt={doctor.fullName}
             fill
             priority
-            className="object-contain"
+            className="scale-[1.3] object-contain"
             sizes="(min-width: 1024px) 55vw, 100vw"
           />
 
@@ -160,7 +166,7 @@ export default function Hero() {
             type="button"
             onClick={handleHotspot}
             aria-label={t.planner.heading}
-            className="tap-target animate-pulse-ring absolute top-[38%] left-[63%] flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/60"
+            className="tap-target animate-pulse-ring absolute top-[34%] left-[67%] flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/60"
           />
 
           {chips.map((chip, i) => (
