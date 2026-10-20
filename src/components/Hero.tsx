@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { doctor } from "@/lib/content";
@@ -29,12 +29,24 @@ const icons: Record<string, React.ReactNode> = {
   ),
 };
 
-const chipPositions = [
-  { top: "8%", side: "2%" as const },
-  { top: "30%", side: "88%" as const },
-  { top: "62%", side: "0%" as const },
-  { top: "84%", side: "82%" as const },
+// Fixed numeric coordinate space (matches the image container's 16:9 box)
+// so chip positions stay proportional at any viewport size.
+const CHIP_VIEW_W = 1000;
+const CHIP_VIEW_H = 562.5;
+
+// Symmetric 2-left / 2-right cluster, pulled in close to the tooth and kept
+// well clear of both the hotspot ring and the bottom-right assistant FAB.
+const chipAnchors = [
+  { x: 165, y: 155 },
+  { x: 835, y: 155 },
+  { x: 165, y: 305 },
+  { x: 835, y: 305 },
 ];
+
+const toPercent = (x: number, y: number) => ({
+  left: `${(x / CHIP_VIEW_W) * 100}%`,
+  top: `${(y / CHIP_VIEW_H) * 100}%`,
+});
 
 export default function Hero() {
   const { t } = useLocale();
@@ -47,6 +59,21 @@ export default function Hero() {
     { slug: "botox-fillers", name: t.services.items[2].name },
     { slug: "veneers-implants", name: t.services.items[3].name },
   ];
+
+  useEffect(() => {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) return;
+    const els = chipRefs.current.filter(Boolean) as HTMLDivElement[];
+    if (!els.length) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        els,
+        { opacity: 0, y: 12, scale: 0.94 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.12, delay: 0.5, ease: "power2.out" }
+      );
+    });
+    return () => ctx.revert();
+  }, []);
 
   const handleHotspot = () => {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -133,24 +160,8 @@ export default function Hero() {
             type="button"
             onClick={handleHotspot}
             aria-label={t.planner.heading}
-            className="tap-target animate-pulse-ring absolute top-[38%] left-[63%] flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/25 backdrop-blur-sm"
-          >
-            <span className="h-3 w-3 rounded-full bg-white" />
-          </button>
-
-          <div className="pointer-events-none absolute inset-0 hidden md:block" aria-hidden>
-            <svg className="absolute inset-0 h-full w-full overflow-visible">
-              {chipPositions.map((pos, i) => (
-                <path
-                  key={i}
-                  d={`M ${pos.side} ${pos.top} Q 50% 45%, 52% 22%`}
-                  stroke="rgba(255,255,255,0.3)"
-                  strokeWidth="1"
-                  fill="none"
-                />
-              ))}
-            </svg>
-          </div>
+            className="tap-target animate-pulse-ring absolute top-[38%] left-[63%] flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/60"
+          />
 
           {chips.map((chip, i) => (
             <div
@@ -158,25 +169,55 @@ export default function Hero() {
               ref={(el) => {
                 chipRefs.current[i] = el;
               }}
-              className="glass-on-blue absolute hidden -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-xl px-3 py-2 md:flex"
-              style={{ top: chipPositions[i].top, left: chipPositions[i].side }}
+              className="glass-chip-strong absolute hidden w-[124px] -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-xl px-2.5 py-2 md:flex"
+              style={toPercent(chipAnchors[i].x, chipAnchors[i].y)}
             >
-              <svg
-                viewBox="0 0 24 24"
-                width="16"
-                height="16"
-                fill="none"
-                stroke="white"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                {icons[chip.slug]}
-              </svg>
-              <span className="text-xs font-medium whitespace-nowrap text-white">{chip.name}</span>
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/20">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="15"
+                  height="15"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  {icons[chip.slug]}
+                </svg>
+              </span>
+              <span className="text-xs leading-tight font-semibold text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.4)]">
+                {chip.name}
+              </span>
             </div>
           ))}
         </Reveal>
+
+        {/* Mobile: same four services as a simple 2x2 grid below the image. */}
+        <div className="order-3 grid grid-cols-2 gap-3 md:hidden">
+          {chips.map((chip) => (
+            <div
+              key={chip.slug}
+              className="glass-chip-strong flex items-center gap-2 rounded-xl px-3 py-2.5"
+            >
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/15">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="15"
+                  height="15"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  {icons[chip.slug]}
+                </svg>
+              </span>
+              <span className="text-xs leading-tight font-medium text-white">{chip.name}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

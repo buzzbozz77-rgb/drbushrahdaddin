@@ -38,6 +38,8 @@ type Dictionary = {
     selectToothHint: string;
     upper: string;
     lower: string;
+    right: string;
+    left: string;
     tooth: string;
     result: string;
     resultGoal: string;
@@ -96,22 +98,16 @@ type Dictionary = {
   };
   assistant: {
     name: string;
+    disclosure: string;
     greeting: string;
     quickBook: string;
     quickServices: string;
     quickLocation: string;
     quickWhatsapp: string;
-    pickService: string;
-    pickDay: string;
-    dayToday: string;
-    dayTomorrow: string;
-    dayThisWeek: string;
-    dayFlexible: string;
-    namePrompt: string;
-    namePlaceholder: string;
-    send: string;
-    back: string;
-    whatsappIntro: string;
+    typing: string;
+    inputPlaceholder: string;
+    sendAria: string;
+    continueWhatsapp: string;
     locationInfo: string;
   };
 };
@@ -159,6 +155,8 @@ export const dictionary: Record<Locale, Dictionary> = {
       selectToothHint: "Tap any tooth to include it in your plan",
       upper: "Upper",
       lower: "Lower",
+      right: "right",
+      left: "left",
       tooth: "Tooth",
       result: "Result",
       resultGoal: "Goal",
@@ -213,22 +211,16 @@ export const dictionary: Record<Locale, Dictionary> = {
     },
     assistant: {
       name: "Booking assistant",
-      greeting: "Hi! I can help you book a visit with Dr. Bushra. What would you like to do?",
+      disclosure: "Automated booking assistant",
+      greeting: "Hi! I can help you book a visit with Dr. Bushra — ask me anything, or use a shortcut below.",
       quickBook: "Book a visit",
       quickServices: "Services",
       quickLocation: "Location & hours",
       quickWhatsapp: "Chat on WhatsApp",
-      pickService: "Which service?",
-      pickDay: "Preferred day?",
-      dayToday: "Today",
-      dayTomorrow: "Tomorrow",
-      dayThisWeek: "This week",
-      dayFlexible: "I'm flexible",
-      namePrompt: "What's your name?",
-      namePlaceholder: "Your name",
-      send: "Send on WhatsApp",
-      back: "Back",
-      whatsappIntro: "Hi, I'd like to book a visit:",
+      typing: "Typing…",
+      inputPlaceholder: "Type a message…",
+      sendAria: "Send",
+      continueWhatsapp: "Continue on WhatsApp",
       locationInfo: "We're based in Amman, Jordan. For exact hours, message us on WhatsApp and we'll confirm.",
     },
   },
@@ -273,6 +265,8 @@ export const dictionary: Record<Locale, Dictionary> = {
       selectToothHint: "اضغطي على أي سن لإضافته لخطتك",
       upper: "علوي",
       lower: "سفلي",
+      right: "يمين",
+      left: "يسار",
       tooth: "سن",
       result: "النتيجة",
       resultGoal: "الهدف",
@@ -327,23 +321,17 @@ export const dictionary: Record<Locale, Dictionary> = {
     },
     assistant: {
       name: "مساعد الحجز",
-      greeting: "أهلاً! بقدر أساعدك تحجزي زيارة مع الدكتورة بشرى. شو حابة تعملي؟",
-      quickBook: "احجزي زيارة",
+      disclosure: "مساعد آلي للحجز",
+      greeting: "أهلاً! بقدر أساعدك تحجز زيارة مع الدكتورة بشرى — اسألني أي سؤال، أو استخدم اختصار من تحت.",
+      quickBook: "احجز زيارة",
       quickServices: "الخدمات",
       quickLocation: "الموقع وساعات العمل",
-      quickWhatsapp: "تحدثي معنا على واتساب",
-      pickService: "أي خدمة؟",
-      pickDay: "اليوم المفضل؟",
-      dayToday: "اليوم",
-      dayTomorrow: "بكرا",
-      dayThisWeek: "هالأسبوع",
-      dayFlexible: "وقتي مرن",
-      namePrompt: "شو اسمك؟",
-      namePlaceholder: "اسمك",
-      send: "إرسال عبر واتساب",
-      back: "رجوع",
-      whatsappIntro: "أهلاً، حابة أحجز زيارة:",
-      locationInfo: "عيادتنا في عمّان، الأردن. لتأكيد الأوقات بالضبط، ابعتيلنا رسالة عالواتساب وبنردلك.",
+      quickWhatsapp: "تحدث معنا على واتساب",
+      typing: "عم يكتب…",
+      inputPlaceholder: "اكتب رسالة…",
+      sendAria: "إرسال",
+      continueWhatsapp: "تابع عبر واتساب",
+      locationInfo: "عيادتنا في عمّان، الأردن. لتأكيد الأوقات بالضبط، ابعتلنا رسالة عالواتساب وبنردلك.",
     },
   },
 };

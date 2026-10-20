@@ -45,7 +45,7 @@ export default function BookingForm() {
   };
 
   return (
-    <section id="book" className="overflow-x-clip px-3 py-10 md:px-6 md:py-16">
+    <section id="book" className="scroll-mt-nav overflow-x-clip px-3 py-10 md:px-6 md:py-16">
       <div className="mx-auto max-w-[1100px]">
         <Reveal>
           <h2 className="font-display text-heading-lg text-center text-white">
@@ -71,7 +71,7 @@ export default function BookingForm() {
           </div>
           <div
             aria-hidden
-            className="animate-float-slow pointer-events-none absolute -bottom-8 right-2 z-10 w-16 opacity-90 sm:-bottom-12 sm:right-8 sm:w-24 md:w-28"
+            className="animate-float-slow pointer-events-none absolute -bottom-10 right-2 z-10 w-24 opacity-90 sm:-bottom-14 sm:right-6 sm:w-36 md:w-44"
             style={{ animationDelay: "-3s" }}
           >
             <Image

@@ -82,7 +82,7 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`glass-on-blue fixed inset-x-3 top-3 z-50 rounded-full transition-all duration-300 md:inset-x-6 ${
+        className={`navbar-solid fixed inset-x-3 top-3 z-50 rounded-full transition-all duration-300 md:inset-x-6 ${
           scrolled ? "py-1.5 md:py-2" : "py-2.5 md:py-3.5"
         }`}
       >

@@ -9,7 +9,7 @@ export default function About() {
   const { t } = useLocale();
 
   return (
-    <section id="about" className="px-3 py-6 md:px-6 md:py-10">
+    <section id="about" className="scroll-mt-nav px-3 py-6 md:px-6 md:py-10">
       <div className="mx-auto max-w-[1200px] rounded-[32px] bg-white px-6 py-14 md:rounded-[40px] md:px-12 md:py-20">
         <div className="grid gap-10 md:grid-cols-[1fr_2fr] md:gap-16">
           <Reveal>

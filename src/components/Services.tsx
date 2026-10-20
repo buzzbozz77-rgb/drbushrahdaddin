@@ -28,7 +28,7 @@ export default function Services() {
   });
 
   return (
-    <section id="services" className="px-3 py-10 md:px-6 md:py-16">
+    <section id="services" className="scroll-mt-nav px-3 py-10 md:px-6 md:py-16">
       <div className="mx-auto max-w-[1320px]">
         <Reveal>
           <h2 className="font-display text-heading-lg text-center text-white">

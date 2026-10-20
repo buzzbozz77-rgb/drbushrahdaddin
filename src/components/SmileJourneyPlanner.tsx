@@ -29,10 +29,17 @@ export default function SmileJourneyPlanner() {
     });
   };
 
+  // 12 teeth per arch, index 0..11 left-to-right in the photo. The image
+  // faces the viewer like a mirror, so the patient's own right side is the
+  // left half of the photo (indices 0-5) and vice versa — standard dental
+  // chart convention. Position counts up from the midline (1 = central).
   const toothLabel = (id: ToothId) => {
-    const [arch, index] = id.split("-");
+    const [arch, indexStr] = id.split("-");
+    const index = Number(indexStr);
     const archLabel = arch === "upper" ? t.planner.upper : t.planner.lower;
-    return `${t.planner.tooth} ${archLabel} ${Number(index) + 1}`;
+    const sideLabel = index < 6 ? t.planner.right : t.planner.left;
+    const position = index < 6 ? 6 - index : index - 5;
+    return `${t.planner.tooth} ${archLabel} ${sideLabel} ${position}`;
   };
 
   const selectedGoal = plannerGoals.find((g) => g.id === goal);
@@ -61,7 +68,7 @@ export default function SmileJourneyPlanner() {
   }, [t, selectedGoal, selectedMethod, selectedPatientType, teethList, locale]);
 
   return (
-    <section id="plan" className="px-3 py-10 md:px-6 md:py-16">
+    <section id="plan" className="scroll-mt-nav px-3 py-10 md:px-6 md:py-16">
       <div className="mx-auto max-w-[1320px]">
         <Reveal>
           <h2 className="font-display text-heading-lg text-center text-white">
@@ -138,13 +145,18 @@ export default function SmileJourneyPlanner() {
             </div>
           </Reveal>
 
-          {/* Middle: tooth selector */}
-          <Reveal delay={0.18} className="glass-on-blue relative overflow-hidden rounded-[28px] p-6">
-            <p className="text-sm font-medium text-white">{t.planner.selectTooth}</p>
-            <p className="mt-1 text-xs text-white/60">{t.planner.selectToothHint}</p>
-            <div className="mt-4">
-              <ToothArchSelector selected={teeth} onToggle={toggleTooth} toothLabel={toothLabel} />
+          {/* Middle: tooth selector — background matches the photo itself,
+              so the selector reads as one continuous image, not a boxed card. */}
+          <Reveal
+            delay={0.18}
+            className="relative overflow-hidden rounded-[28px]"
+            style={{ backgroundColor: "#0130b2" }}
+          >
+            <div className="px-6 pt-6 pb-3">
+              <p className="text-sm font-medium text-white">{t.planner.selectTooth}</p>
+              <p className="mt-1 text-xs text-white/60">{t.planner.selectToothHint}</p>
             </div>
+            <ToothArchSelector selected={teeth} onToggle={toggleTooth} toothLabel={toothLabel} />
           </Reveal>
 
           {/* Right: result */}

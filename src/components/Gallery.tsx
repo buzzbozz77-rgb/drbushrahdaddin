@@ -11,7 +11,7 @@ export default function Gallery() {
   const { t } = useLocale();
 
   return (
-    <section id="gallery" className="mx-auto max-w-[1200px] px-6 py-24 md:py-32">
+    <section id="gallery" className="scroll-mt-nav mx-auto max-w-[1200px] px-6 py-24 md:py-32">
       <Reveal>
         <h2 className="font-display text-heading text-foreground">{t.gallery.heading}</h2>
         <p className="mt-3 max-w-xl text-muted">{t.gallery.subheading}</p>
