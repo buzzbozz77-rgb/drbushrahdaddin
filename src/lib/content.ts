@@ -65,23 +65,16 @@ export type BeforeAfterPair = {
   height: number;
 };
 
-// First entry is the primary interactive drag-slider (4:3, cropped tight to
-// mouth/teeth only); any further entries show as small static thumbnails.
+// A single, wide 4:3 before/after pair cropped tight to the mouth/teeth.
 export const beforeAfterPairs: BeforeAfterPair[] = [
   {
     before: "/photos/before-after-clinical-before.webp",
     after: "/photos/before-after-clinical-after.webp",
     altBefore: "Teeth before treatment, clinical view",
     altAfter: "Teeth after treatment, clinical view",
-    width: 593,
-    height: 445,
-  },
-  {
-    before: "/photos/before-after-selfie-before.webp",
-    after: "/photos/before-after-selfie-after.webp",
-    altBefore: "Teeth before whitening",
-    altAfter: "Teeth after whitening",
-    width: 240,
-    height: 480,
+    // Displayed larger than native (593x445) now that it's the only pair in
+    // the section — a deliberate trade-off the user asked for explicitly.
+    width: 880,
+    height: 660,
   },
 ];

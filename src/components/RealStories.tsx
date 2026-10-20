@@ -46,11 +46,7 @@ export default function RealStories() {
 
         <Reveal delay={0.15} className="mt-16">
           {beforeAfterPairs.length > 0 ? (
-            <div className="mx-auto grid max-w-3xl gap-8 sm:grid-cols-2">
-              {beforeAfterPairs.map((pair, i) => (
-                <BeforeAfterSlider key={i} pair={pair} />
-              ))}
-            </div>
+            <BeforeAfterSlider pair={beforeAfterPairs[0]} />
           ) : (
             <div className="mx-auto flex aspect-[4/3] max-w-md items-center justify-center rounded-2xl border border-dashed border-white/25">
               <p className="max-w-sm text-center text-sm text-white/60">

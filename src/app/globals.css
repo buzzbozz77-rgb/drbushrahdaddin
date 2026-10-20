@@ -143,7 +143,12 @@ html[dir="rtl"] .font-display {
 /* Heavier glass for the Hero chips: stronger blur + crisper 1px border for
    higher contrast against the photo behind them, plus a hover sheen sweep. */
 .glass-chip-strong {
-  position: relative;
+  /* No `position` here on purpose — it was overriding the Hero chips'
+     Tailwind `absolute` class (unlayered author CSS beats a utility-layer
+     class of equal specificity), which broke their anchored positioning.
+     `absolute` already gives those chips a valid containing block for the
+     ::after sheen below; the static-flow mobile-grid chips get `relative`
+     added directly on the element instead. */
   overflow: hidden;
   background: rgba(20, 35, 110, 0.55);
   border: 1px solid rgba(255, 255, 255, 0.38);

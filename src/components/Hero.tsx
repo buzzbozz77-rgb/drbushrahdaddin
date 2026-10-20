@@ -207,7 +207,7 @@ export default function Hero() {
           {chips.map((chip) => (
             <div
               key={chip.slug}
-              className="glass-chip-strong flex items-center gap-2 rounded-xl px-3 py-2.5"
+              className="glass-chip-strong relative flex items-center gap-2 rounded-xl px-3 py-2.5"
             >
               <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/15">
                 <svg

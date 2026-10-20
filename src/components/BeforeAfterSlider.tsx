@@ -4,8 +4,6 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import type { BeforeAfterPair } from "@/lib/content";
 
-const STEP = 15;
-
 export default function BeforeAfterSlider({ pair }: { pair: BeforeAfterPair }) {
   const [position, setPosition] = useState(50);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -17,10 +15,6 @@ export default function BeforeAfterSlider({ pair }: { pair: BeforeAfterPair }) {
     const rect = el.getBoundingClientRect();
     const pct = ((clientX - rect.left) / rect.width) * 100;
     setPosition(Math.min(100, Math.max(0, pct)));
-  };
-
-  const step = (delta: number) => {
-    setPosition((prev) => Math.min(100, Math.max(0, prev + delta)));
   };
 
   return (
@@ -56,31 +50,6 @@ export default function BeforeAfterSlider({ pair }: { pair: BeforeAfterPair }) {
           ↔
         </div>
       </div>
-
-      <button
-        type="button"
-        aria-label="Reveal more before"
-        onClick={(e) => {
-          e.stopPropagation();
-          step(-STEP);
-        }}
-        onPointerDown={(e) => e.stopPropagation()}
-        className="absolute top-1/2 left-2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/85 text-lg text-ink shadow-md transition-colors hover:bg-white"
-      >
-        ‹
-      </button>
-      <button
-        type="button"
-        aria-label="Reveal more after"
-        onClick={(e) => {
-          e.stopPropagation();
-          step(STEP);
-        }}
-        onPointerDown={(e) => e.stopPropagation()}
-        className="absolute top-1/2 right-2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/85 text-lg text-ink shadow-md transition-colors hover:bg-white"
-      >
-        ›
-      </button>
     </div>
   );
 }
