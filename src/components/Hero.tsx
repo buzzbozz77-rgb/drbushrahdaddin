@@ -149,15 +149,18 @@ export default function Hero() {
           delay={0.15}
           className="relative order-1 mx-auto aspect-[16/9] w-full max-w-2xl overflow-hidden rounded-[28px] lg:order-2"
         >
-          {/* Scaled up ~1.3x so the hand/tooth reads bigger in frame — the
-              container (and so the chips' % positions below) keeps its size,
-              this just zooms/clips the photo itself. */}
+          {/* Scaled up ~1.3x so the hand/tooth reads bigger in frame. The
+              fingers already touch the photo's bottom edge natively, so the
+              zoom is anchored near the bottom (not the center) — it grows
+              into the empty bokeh background at the top instead of pushing
+              the hand out of frame. Container size (and the chips' %
+              positions below) is unaffected. */}
           <Image
             src="/hero/dentist-tooth.webp"
             alt={doctor.fullName}
             fill
             priority
-            className="scale-[1.3] object-contain"
+            className="origin-[50%_88%] scale-[1.3] object-contain"
             sizes="(min-width: 1024px) 55vw, 100vw"
           />
 
@@ -166,7 +169,7 @@ export default function Hero() {
             type="button"
             onClick={handleHotspot}
             aria-label={t.planner.heading}
-            className="tap-target animate-pulse-ring absolute top-[34%] left-[67%] flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/60"
+            className="tap-target animate-pulse-ring absolute top-[23%] left-[67%] flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/60"
           />
 
           {chips.map((chip, i) => (
