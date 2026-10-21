@@ -8,7 +8,9 @@ import { useLocale } from "@/components/LocaleProvider";
 import Reveal from "@/components/Reveal";
 
 const icons: Record<string, React.ReactNode> = {
-  "cosmetic-dentistry": <path d="M12 3c2.5 0 4.5 1.5 4.5 4.5 0 2-.6 3.3-1 5.3-.4 2-.7 4.2-2 6.2-.4.6-1 1-1.5 1s-1.1-.4-1.5-1c-1.3-2-1.6-4.2-2-6.2-.4-2-1-3.3-1-5.3C7.5 4.5 9.5 3 12 3Z" />,
+  "cosmetic-dentistry": (
+    <path d="M12 3c2.5 0 4.5 1.5 4.5 4.5 0 2-.6 3.3-1 5.3-.4 2-.7 4.2-2 6.2-.4.6-1 1-1.5 1s-1.1-.4-1.5-1c-1.3-2-1.6-4.2-2-6.2-.4-2-1-3.3-1-5.3C7.5 4.5 9.5 3 12 3Z" />
+  ),
   "dental-oral-surgery": (
     <>
       <path d="M7 3l4 4-6 6a2.8 2.8 0 1 0 4 4l6-6 4 4" />
@@ -29,28 +31,36 @@ const icons: Record<string, React.ReactNode> = {
   ),
 };
 
-// Fixed numeric coordinate space (matches the image container's 16:9 box)
-// so chip positions stay proportional at any viewport size.
-const CHIP_VIEW_W = 1000;
-const CHIP_VIEW_H = 562.5;
+/* ------------------------------------------------------------------ */
+/* Geometry                                                            */
+/* ------------------------------------------------------------------ */
+// One shared coordinate space (the image box is exactly 16:9, and the photo
+// is 16:9 too, so object-cover crops nothing and % positions map 1:1 onto
+// the photo). Chips, hotspot and leader lines all live in this space.
+const VIEW_W = 1000;
+const VIEW_H = 562.5;
 
-// Symmetric 2-left / 2-right cluster, pulled in close to the tooth and kept
-// well clear of both the hotspot ring and the bottom-right assistant FAB.
+// The tooth. Measured on the *unscaled* photo (the old 1.3x zoom is gone, so
+// the old 67% / 23% mapped back to ~63% / ~38%).
+const HOTSPOT = { x: 630, y: 214 };
+
+// 2-left / 2-right, symmetric around the tooth's vertical axis of attention.
 const chipAnchors = [
-  { x: 165, y: 155 },
-  { x: 835, y: 155 },
-  { x: 165, y: 305 },
-  { x: 835, y: 305 },
+  { x: 150, y: 150 },
+  { x: 850, y: 150 },
+  { x: 150, y: 330 },
+  { x: 850, y: 330 },
 ];
 
-const toPercent = (x: number, y: number) => ({
-  left: `${(x / CHIP_VIEW_W) * 100}%`,
-  top: `${(y / CHIP_VIEW_H) * 100}%`,
+const pct = (x: number, y: number) => ({
+  left: `${(x / VIEW_W) * 100}%`,
+  top: `${(y / VIEW_H) * 100}%`,
 });
 
 export default function Hero() {
   const { t } = useLocale();
-  const chipRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const stageRef = useRef<HTMLDivElement>(null);
   const hotspotRef = useRef<HTMLButtonElement>(null);
 
   const chips = [
@@ -60,43 +70,57 @@ export default function Hero() {
     { slug: "veneers-implants", name: t.services.items[3].name },
   ];
 
+  /* ---------------------------------------------------------------- */
+  /* One orchestrated entrance: lines draw → chips settle → hotspot   */
+  /* ---------------------------------------------------------------- */
   useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+
+    const chipEls = stage.querySelectorAll<HTMLElement>("[data-chip]");
+    const lineEls = stage.querySelectorAll<SVGLineElement>("[data-line]");
+    const hotspot = stage.querySelector<HTMLElement>("[data-hotspot]");
+
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion) return;
-    const els = chipRefs.current.filter(Boolean) as HTMLDivElement[];
-    if (!els.length) return;
+    if (reduceMotion) {
+      gsap.set([...chipEls, ...lineEls, hotspot], { clearProps: "all", opacity: 1 });
+      return;
+    }
+
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        els,
-        { opacity: 0, y: 12, scale: 0.94 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.12, delay: 0.5, ease: "power2.out" }
-      );
-    });
+      lineEls.forEach((l) => {
+        const len = l.getTotalLength();
+        gsap.set(l, { strokeDasharray: len, strokeDashoffset: len, opacity: 1 });
+      });
+
+      gsap
+        .timeline({ delay: 0.55, defaults: { ease: "power3.out" } })
+        .fromTo(hotspot, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.5 })
+        .to(lineEls, { strokeDashoffset: 0, duration: 0.7, stagger: 0.08 }, "-=0.1")
+        .fromTo(
+          chipEls,
+          { opacity: 0, y: 8 },
+          { opacity: 1, y: 0, duration: 0.45, stagger: 0.08 },
+          "-=0.5"
+        );
+    }, stage);
+
     return () => ctx.revert();
   }, []);
 
+  /* ---------------------------------------------------------------- */
+  /* Hotspot → planner                                                */
+  /* ---------------------------------------------------------------- */
   const handleHotspot = () => {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    if (!reduceMotion) {
-      if (hotspotRef.current) {
-        gsap.fromTo(
-          hotspotRef.current,
-          { scale: 1 },
-          { scale: 1.6, opacity: 0, duration: 0.6, ease: "power2.out", yoyo: true, repeat: 1 }
-        );
-      }
-      chipRefs.current.forEach((el, i) => {
-        if (!el) return;
-        gsap.to(el, {
-          scale: 1.08,
-          duration: 0.2,
-          delay: i * 0.05,
-          yoyo: true,
-          repeat: 1,
-          ease: "power1.inOut",
-        });
-      });
+    if (!reduceMotion && stageRef.current) {
+      const chipEls = stageRef.current.querySelectorAll<HTMLElement>("[data-chip]");
+      gsap.fromTo(
+        chipEls,
+        { scale: 1 },
+        { scale: 1.05, duration: 0.18, stagger: 0.04, yoyo: true, repeat: 1, ease: "power1.inOut" }
+      );
     }
 
     window.setTimeout(
@@ -106,127 +130,170 @@ export default function Hero() {
           block: "start",
         });
       },
-      reduceMotion ? 0 : 350
+      reduceMotion ? 0 : 300
     );
   };
 
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden px-4 pt-28 pb-16 md:px-10 md:pt-32">
-      <div className="mx-auto grid w-full max-w-[1400px] items-center gap-10 lg:grid-cols-2 lg:gap-6">
-        <Reveal className="order-2 text-center lg:order-1 lg:text-left rtl:lg:text-right">
+      <div className="mx-auto grid w-full max-w-[1400px] items-center gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14">
+        {/* ------------------------------ Copy ------------------------------ */}
+        <Reveal className="order-2 text-center lg:order-1 lg:text-start">
           <h1 className="font-display text-hero text-balance text-white">{t.doctor.tagline}</h1>
-          <p className="mx-auto mt-5 max-w-sm text-base leading-relaxed text-white/75 lg:mx-0">
+
+          <p className="mx-auto mt-6 max-w-md text-base leading-[1.7] text-white/80 lg:mx-0 lg:text-[17px]">
             {t.doctor.bio}
           </p>
 
-          <div className="mt-8 flex flex-col items-center gap-4 lg:items-start">
+          <div className="mt-9 flex flex-col items-center gap-5 lg:items-start">
             <a
               href={doctor.whatsappHref}
-              className="tap-target inline-flex items-center rounded-full bg-white px-8 text-base font-medium text-ink transition-transform hover:-translate-y-0.5"
+              className="tap-target inline-flex items-center rounded-full bg-white px-9 text-base font-semibold text-ink shadow-[0_10px_30px_-10px_rgba(0,0,0,0.45)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-10px_rgba(0,0,0,0.5)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
             >
               {t.hero.ctaBook}
             </a>
 
-            <div className="glass-on-blue flex items-center gap-3 rounded-2xl px-4 py-2.5">
-              <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full ring-2 ring-white/50">
+            <div className="flex items-center gap-3">
+              <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full ring-2 ring-white/60">
                 <Image
                   src="/photos/dr-bushra.jpg"
                   alt={doctor.fullName}
                   fill
+                  quality={90}
                   className="object-cover"
-                  sizes="40px"
+                  sizes="44px"
                 />
               </div>
-              <div className="text-left rtl:text-right">
-                <p className="text-xs font-semibold text-white">{doctor.fullName}</p>
-                <p className="text-[11px] text-white/70">{t.doctor.title}</p>
+              <div className="text-start">
+                <p className="text-sm font-semibold leading-tight text-white">{doctor.fullName}</p>
+                <p className="mt-0.5 text-xs leading-tight text-white/70">{t.doctor.title}</p>
               </div>
             </div>
           </div>
         </Reveal>
 
-        <Reveal
-          delay={0.15}
-          className="relative order-1 mx-auto aspect-[16/9] w-full max-w-2xl overflow-hidden rounded-[28px] lg:order-2"
-        >
-          {/* Scaled up ~1.3x so the hand/tooth reads bigger in frame. The
-              fingers already touch the photo's bottom edge natively, so the
-              zoom is anchored near the bottom (not the center) — it grows
-              into the empty bokeh background at the top instead of pushing
-              the hand out of frame. Container size (and the chips' %
-              positions below) is unaffected. */}
-          <Image
-            src="/hero/dentist-tooth.webp"
-            alt={doctor.fullName}
-            fill
-            priority
-            className="origin-[50%_88%] scale-[1.3] object-contain"
-            sizes="(min-width: 1024px) 55vw, 100vw"
-          />
+        {/* ------------------------------ Stage ----------------------------- */}
+        <Reveal delay={0.1} className="order-1 w-full lg:order-2">
+          <div
+            ref={stageRef}
+            className="relative mx-auto aspect-[16/9] w-full max-w-3xl overflow-hidden rounded-[28px] bg-white/5 shadow-[0_40px_80px_-30px_rgba(0,20,60,0.55)] ring-1 ring-white/20 lg:max-w-none"
+          >
+            {/* Native 16:9 photo in a 16:9 box: no zoom, no crop, no resampling blur. */}
+            <Image
+              src="/hero/dentist-tooth.webp"
+              alt={doctor.fullName}
+              fill
+              priority
+              quality={95}
+              className="object-cover object-center"
+              sizes="(min-width: 1400px) 780px, (min-width: 1024px) 56vw, 100vw"
+            />
 
-          <button
-            ref={hotspotRef}
-            type="button"
-            onClick={handleHotspot}
-            aria-label={t.planner.heading}
-            className="tap-target animate-pulse-ring absolute top-[23%] left-[67%] flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/60"
-          />
-
-          {chips.map((chip, i) => (
+            {/* Soft edge vignette so chips stay legible on any part of the photo. */}
             <div
-              key={chip.slug}
-              ref={(el) => {
-                chipRefs.current[i] = el;
-              }}
-              className="glass-chip-strong absolute hidden w-[124px] -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-xl px-2.5 py-2 md:flex"
-              style={toPercent(chipAnchors[i].x, chipAnchors[i].y)}
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(0,20,60,0.28)_100%)]"
+            />
+
+            {/* Leader lines: chip → tooth (desktop only) */}
+            <svg
+              aria-hidden
+              viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
+              preserveAspectRatio="none"
+              className="pointer-events-none absolute inset-0 hidden h-full w-full md:block"
             >
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/20">
-                <svg
-                  viewBox="0 0 24 24"
-                  width="15"
-                  height="15"
-                  fill="none"
+              {chipAnchors.map((a, i) => (
+                <line
+                  key={i}
+                  data-line
+                  x1={a.x}
+                  y1={a.y}
+                  x2={HOTSPOT.x}
+                  y2={HOTSPOT.y}
                   stroke="white"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  {icons[chip.slug]}
-                </svg>
-              </span>
-              <span className="text-xs leading-tight font-semibold text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.4)]">
-                {chip.name}
-              </span>
-            </div>
-          ))}
+                  strokeOpacity="0.55"
+                  strokeWidth="1"
+                  vectorEffect="non-scaling-stroke"
+                  style={{ opacity: 0 }}
+                />
+              ))}
+            </svg>
+
+            {/* Hotspot */}
+            <button
+              ref={hotspotRef}
+              data-hotspot
+              type="button"
+              onClick={handleHotspot}
+              aria-label={t.planner.heading}
+              style={{ ...pct(HOTSPOT.x, HOTSPOT.y), opacity: 0 }}
+              className="tap-target animate-pulse-ring absolute z-10 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            >
+              <span className="h-2.5 w-2.5 rounded-full bg-white shadow-[0_0_0_4px_rgba(255,255,255,0.25)]" />
+            </button>
+
+            {/* Service callouts (desktop) */}
+            {chips.map((chip, i) => (
+              <a
+                key={chip.slug}
+                data-chip
+                href="#services"
+                style={{ ...pct(chipAnchors[i].x, chipAnchors[i].y), opacity: 0 }}
+                className="glass-chip-strong absolute z-10 hidden w-[132px] -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-xl px-2.5 py-2 transition-colors duration-200 hover:bg-white/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:flex"
+              >
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/20">
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="15"
+                    height="15"
+                    fill="none"
+                    stroke="white"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden
+                  >
+                    {icons[chip.slug]}
+                  </svg>
+                </span>
+                <span className="text-start text-xs leading-tight font-semibold text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.45)]">
+                  {chip.name}
+                </span>
+              </a>
+            ))}
+          </div>
         </Reveal>
 
-        {/* Mobile: same four services as a simple 2x2 grid below the image. */}
-        <div className="order-3 grid grid-cols-2 gap-3 md:hidden">
+        {/* ------------------- Mobile: services as 2x2 --------------------- */}
+        <ul className="order-3 grid grid-cols-2 gap-3 md:hidden lg:col-span-2">
           {chips.map((chip) => (
-            <div
-              key={chip.slug}
-              className="glass-chip-strong relative flex items-center gap-2 rounded-xl px-3 py-2.5"
-            >
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/15">
-                <svg
-                  viewBox="0 0 24 24"
-                  width="15"
-                  height="15"
-                  fill="none"
-                  stroke="white"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  {icons[chip.slug]}
-                </svg>
-              </span>
-              <span className="text-xs leading-tight font-medium text-white">{chip.name}</span>
-            </div>
+            <li key={chip.slug}>
+              <a
+                href="#services"
+                className="glass-chip-strong flex items-center gap-2.5 rounded-xl px-3 py-3"
+              >
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/15">
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="16"
+                    height="16"
+                    fill="none"
+                    stroke="white"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden
+                  >
+                    {icons[chip.slug]}
+                  </svg>
+                </span>
+                <span className="text-start text-xs leading-tight font-medium text-white">
+                  {chip.name}
+                </span>
+              </a>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

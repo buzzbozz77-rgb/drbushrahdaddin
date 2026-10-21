@@ -141,7 +141,7 @@ export const dictionary: Record<Locale, Dictionary> = {
       ],
     },
     team: {
-      heading: "Meet the minds behind your smile",
+      heading: "Meet the mind behind your smile",
       subheading: "A focused, hands-on practice led directly by Dr. Bushra.",
       comingSoon: "More team members joining soon",
     },
