@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 // Tooth polygons were hand-digitized against the real full-arch photo
 // (public/arch/arch-full.jpg — a single correct, un-merged render with a
 // correct bite) by reading pixel coordinates off a gridded overlay of the
@@ -45,112 +47,141 @@ export const LOWER_TEETH: [number, number][][] = [
 
 export type ToothId = `${"upper" | "lower"}-${number}`;
 
+type Tooth = {
+  id: ToothId;
+  points: string;
+  cx: number;
+  cy: number;
+  minY: number;
+  maxY: number;
+  arch: "upper" | "lower";
+};
+
+const TEETH: Tooth[] = (
+  [
+    ["upper", UPPER_TEETH],
+    ["lower", LOWER_TEETH],
+  ] as const
+).flatMap(([arch, teeth]) =>
+  teeth.map((pts, i) => {
+    const ys = pts.map(([, y]) => y);
+    return {
+      id: `${arch}-${i}` as ToothId,
+      arch,
+      points: pts.map(([x, y]) => `${x},${y}`).join(" "),
+      cx: pts.reduce((s, [x]) => s + x, 0) / pts.length,
+      cy: pts.reduce((s, [, y]) => s + y, 0) / pts.length,
+      minY: Math.min(...ys),
+      maxY: Math.max(...ys),
+    };
+  })
+);
+
 export default function ToothArchSelector({
   selected,
   onToggle,
+  onClear,
   toothLabel,
+  countLabel,
+  clearLabel,
+  hintLabel,
 }: {
   selected: Set<ToothId>;
   onToggle: (id: ToothId) => void;
+  onClear: () => void;
   toothLabel: (id: ToothId) => string;
+  countLabel: (n: number) => string;
+  clearLabel: string;
+  hintLabel: string;
 }) {
-  const arches: { arch: "upper" | "lower"; teeth: typeof UPPER_TEETH }[] = [
-    { arch: "upper", teeth: UPPER_TEETH },
-    { arch: "lower", teeth: LOWER_TEETH },
-  ];
+  // The tooth under the pointer / keyboard focus. Drives the floating name
+  // label, so people see *which* tooth they're about to pick before tapping.
+  const [active, setActive] = useState<ToothId | null>(null);
+  const activeTooth = TEETH.find((t) => t.id === active) ?? null;
+
+  // Upper-arch labels sit just below the tooth, lower-arch labels just above
+  // it — both land in the bite gap, never off the top/bottom of the photo.
+  const labelY = activeTooth
+    ? activeTooth.arch === "upper"
+      ? activeTooth.maxY + 18
+      : activeTooth.minY - 18
+    : 0;
 
   return (
-    <div
-      className="relative overflow-hidden rounded-[20px]"
-      style={{ backgroundColor: BG_COLOR }}
-    >
-      <svg
-        viewBox={`0 0 ${IMAGE_W} ${IMAGE_H}`}
-        className="h-full w-full"
-        style={{ aspectRatio: `${IMAGE_W} / ${IMAGE_H}` }}
-        role="group"
-        aria-label="Tooth selector"
-      >
-        <defs>
-          {/* Feathers the photo's own edges into the solid, color-matched
-              background behind it, so there is no visible seam/box. */}
-          <radialGradient id="arch-feather" cx="50%" cy="50%" r="62%">
-            <stop offset="78%" stopColor="white" stopOpacity="1" />
-            <stop offset="100%" stopColor="white" stopOpacity="0" />
-          </radialGradient>
-          <mask id="arch-feather-mask">
-            <rect x={0} y={0} width={IMAGE_W} height={IMAGE_H} fill="url(#arch-feather)" />
-          </mask>
-        </defs>
+    <div>
+      <div className="relative overflow-hidden rounded-[20px]" style={{ backgroundColor: BG_COLOR }}>
+        <svg
+          viewBox={`0 0 ${IMAGE_W} ${IMAGE_H}`}
+          className="block h-full w-full touch-manipulation select-none"
+          style={{ aspectRatio: `${IMAGE_W} / ${IMAGE_H}` }}
+          role="group"
+          aria-label={hintLabel}
+        >
+          <defs>
+            {/* Feathers the photo's own edges into the solid, color-matched
+                background behind it, so there is no visible seam/box. */}
+            <radialGradient id="arch-feather" cx="50%" cy="50%" r="62%">
+              <stop offset="78%" stopColor="white" stopOpacity="1" />
+              <stop offset="100%" stopColor="white" stopOpacity="0" />
+            </radialGradient>
+            <mask id="arch-feather-mask">
+              <rect x={0} y={0} width={IMAGE_W} height={IMAGE_H} fill="url(#arch-feather)" />
+            </mask>
+          </defs>
 
-        <image
-          href={IMAGE_SRC}
-          x={0}
-          y={0}
-          width={IMAGE_W}
-          height={IMAGE_H}
-          pointerEvents="none"
-          mask="url(#arch-feather-mask)"
-        />
+          <image
+            href={IMAGE_SRC}
+            x={0}
+            y={0}
+            width={IMAGE_W}
+            height={IMAGE_H}
+            pointerEvents="none"
+            mask="url(#arch-feather-mask)"
+          />
 
-        {arches.map(({ arch, teeth }) =>
-          teeth.map((points, i) => {
-            const id = `${arch}-${i}` as ToothId;
-            const isSelected = selected.has(id);
-            const pointsAttr = points.map(([x, y]) => `${x},${y}`).join(" ");
-            const cx = points.reduce((sum, [x]) => sum + x, 0) / points.length;
-            const cy = points.reduce((sum, [, y]) => sum + y, 0) / points.length;
-            const badgeR = 26;
-
+          {TEETH.map((tooth) => {
+            const isSelected = selected.has(tooth.id);
+            const isActive = active === tooth.id;
             return (
-              <g key={id}>
+              <g key={tooth.id}>
                 <polygon
-                  points={pointsAttr}
+                  points={tooth.points}
                   role="button"
                   tabIndex={0}
                   aria-pressed={isSelected}
-                  aria-label={toothLabel(id)}
-                  className="group cursor-pointer outline-none"
-                  fill={isSelected ? "rgba(255,176,32,0.38)" : "rgba(255,255,255,0.001)"}
-                  stroke={isSelected ? SELECT_COLOR : "rgba(255,255,255,0.4)"}
-                  strokeWidth={isSelected ? 6 : 1.5}
+                  aria-label={toothLabel(tooth.id)}
+                  className={`cursor-pointer outline-none transition-[fill,stroke,stroke-width] duration-200 ${
+                    isSelected ? "tooth-selected" : ""
+                  }`}
+                  fill={
+                    isSelected
+                      ? "rgba(255,176,32,0.34)"
+                      : isActive
+                        ? "rgba(255,255,255,0.14)"
+                        : "rgba(255,255,255,0.001)"
+                  }
+                  stroke={isSelected || isActive ? SELECT_COLOR : "rgba(255,255,255,0.1)"}
+                  strokeWidth={isSelected ? 5 : isActive ? 3.5 : 1.25}
                   strokeLinejoin="round"
-                  style={{
-                    filter: isSelected
-                      ? `drop-shadow(0 0 10px ${SELECT_COLOR}) drop-shadow(0 0 20px ${SELECT_COLOR})`
-                      : "none",
-                    transition:
-                      "filter 0.2s ease, fill 0.2s ease, stroke 0.2s ease, stroke-width 0.2s ease",
-                  }}
-                  onClick={() => onToggle(id)}
+                  onClick={() => onToggle(tooth.id)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
                       e.preventDefault();
-                      onToggle(id);
+                      onToggle(tooth.id);
                     }
                   }}
-                  onMouseEnter={(e) => {
-                    if (!isSelected) {
-                      e.currentTarget.style.stroke = SELECT_COLOR;
-                      e.currentTarget.style.strokeWidth = "3";
-                      e.currentTarget.style.filter = `drop-shadow(0 0 8px ${SELECT_COLOR})`;
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isSelected) {
-                      e.currentTarget.style.stroke = "rgba(255,255,255,0.4)";
-                      e.currentTarget.style.strokeWidth = "1.5";
-                      e.currentTarget.style.filter = "none";
-                    }
-                  }}
+                  onPointerEnter={() => setActive(tooth.id)}
+                  onPointerLeave={() => setActive((cur) => (cur === tooth.id ? null : cur))}
+                  onFocus={() => setActive(tooth.id)}
+                  onBlur={() => setActive((cur) => (cur === tooth.id ? null : cur))}
                 />
                 {isSelected && (
                   <g pointerEvents="none">
-                    <circle cx={cx} cy={cy} r={badgeR} fill={SELECT_COLOR} stroke="white" strokeWidth={3} />
+                    <circle cx={tooth.cx} cy={tooth.cy} r={17} fill={SELECT_COLOR} stroke="white" strokeWidth={3} />
                     <path
-                      d={`M ${cx - badgeR * 0.5} ${cy} l ${badgeR * 0.3} ${badgeR * 0.35} l ${badgeR * 0.55} -${badgeR * 0.6}`}
+                      d={`M ${tooth.cx - 7} ${tooth.cy} l 4.5 5 l 9 -9.5`}
                       stroke="white"
-                      strokeWidth={badgeR * 0.22}
+                      strokeWidth={3.6}
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       fill="none"
@@ -159,9 +190,36 @@ export default function ToothArchSelector({
                 )}
               </g>
             );
-          })
+          })}
+        </svg>
+
+        {activeTooth && (
+          <div
+            className="pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white px-3 py-1 text-[11px] font-semibold whitespace-nowrap text-ink shadow-[0_6px_18px_-6px_rgba(0,0,0,0.5)]"
+            style={{
+              left: `${Math.min(88, Math.max(12, (activeTooth.cx / IMAGE_W) * 100))}%`,
+              top: `${(labelY / IMAGE_H) * 100}%`,
+            }}
+          >
+            {toothLabel(activeTooth.id)}
+          </div>
         )}
-      </svg>
+      </div>
+
+      <div className="mt-3 flex min-h-9 items-center justify-between gap-3 px-1 text-xs">
+        <span className="text-white/70" aria-live="polite">
+          {selected.size > 0 ? countLabel(selected.size) : hintLabel}
+        </span>
+        {selected.size > 0 && (
+          <button
+            type="button"
+            onClick={onClear}
+            className="rounded-full border border-white/30 px-3 py-1.5 font-medium text-white/85 transition-colors hover:border-white/60 hover:text-white"
+          >
+            {clearLabel}
+          </button>
+        )}
+      </div>
     </div>
   );
 }

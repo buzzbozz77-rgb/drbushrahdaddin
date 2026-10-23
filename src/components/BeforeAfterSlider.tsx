@@ -4,8 +4,8 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import type { BeforeAfterPair } from "@/lib/content";
 
-// Maximum display width in px. Lower it for even smaller images (e.g. 340).
-const MAX_WIDTH = 400;
+// Display cap in px — close to the source photo's native width so it stays sharp.
+const MAX_WIDTH = 640;
 
 export default function BeforeAfterSlider({ pair }: { pair: BeforeAfterPair }) {
   const [position, setPosition] = useState(50);

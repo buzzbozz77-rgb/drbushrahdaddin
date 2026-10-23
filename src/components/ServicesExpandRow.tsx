@@ -79,7 +79,9 @@ export default function ServicesExpandRow({ items }: { items: Item[] }) {
                 {item.description}
               </p>
               <span className="rtl:rotate-180 mt-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-white">
-                →
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
               </span>
             </div>
           </div>

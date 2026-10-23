@@ -154,9 +154,18 @@ export default function SmileJourneyPlanner() {
           >
             <div className="px-6 pt-6 pb-3">
               <p className="text-sm font-medium text-white">{t.planner.selectTooth}</p>
-              <p className="mt-1 text-xs text-white/60">{t.planner.selectToothHint}</p>
             </div>
-            <ToothArchSelector selected={teeth} onToggle={toggleTooth} toothLabel={toothLabel} />
+            <div className="px-3 pb-4">
+              <ToothArchSelector
+                selected={teeth}
+                onToggle={toggleTooth}
+                onClear={() => setTeeth(new Set())}
+                toothLabel={toothLabel}
+                countLabel={(n) => t.planner.teethSelected.replace("{n}", String(n))}
+                clearLabel={t.planner.clearTeeth}
+                hintLabel={t.planner.selectToothHint}
+              />
+            </div>
           </Reveal>
 
           {/* Right: result */}

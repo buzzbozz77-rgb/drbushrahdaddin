@@ -36,6 +36,8 @@ type Dictionary = {
     stepPatient: string;
     selectTooth: string;
     selectToothHint: string;
+    teethSelected: string;
+    clearTeeth: string;
     upper: string;
     lower: string;
     right: string;
@@ -55,6 +57,7 @@ type Dictionary = {
   gallery: {
     heading: string;
     subheading: string;
+    disclaimer: string;
   };
   testimonials: {
     heading: string;
@@ -104,7 +107,10 @@ type Dictionary = {
     quickServices: string;
     quickLocation: string;
     quickWhatsapp: string;
+    quickDoctor: string;
     typing: string;
+    closeAria: string;
+    errorReply: string;
     inputPlaceholder: string;
     sendAria: string;
     continueWhatsapp: string;
@@ -152,7 +158,9 @@ export const dictionary: Record<Locale, Dictionary> = {
       stepMethod: "02. Preferred method",
       stepPatient: "03. Patient type",
       selectTooth: "Select tooth",
-      selectToothHint: "Tap any tooth to include it in your plan",
+      selectToothHint: "Tap any tooth on the photo to add it to your plan",
+      teethSelected: "{n} selected",
+      clearTeeth: "Clear",
       upper: "Upper",
       lower: "Lower",
       right: "right",
@@ -171,7 +179,8 @@ export const dictionary: Record<Locale, Dictionary> = {
     },
     gallery: {
       heading: "Case gallery",
-      subheading: "Real results, real patients. This section fills in as case photos are added.",
+      subheading: "A closer look at the kind of change a well-planned treatment makes.",
+      disclaimer: "Results vary from person to person. Every plan starts with an in-person assessment.",
     },
     testimonials: { heading: "What patients say" },
     stories: {
@@ -211,13 +220,16 @@ export const dictionary: Record<Locale, Dictionary> = {
     },
     assistant: {
       name: "Booking assistant",
-      disclosure: "Automated booking assistant",
-      greeting: "Hi! I can help you book a visit with Dr. Bushra — ask me anything, or use a shortcut below.",
+      disclosure: "Automated assistant · instant replies",
+      greeting: "Hi, welcome! I'm Dr. Bushra's booking assistant. Ask me about treatments, the doctor, finding the clinic — or let's book your visit.",
       quickBook: "Book a visit",
       quickServices: "Services",
       quickLocation: "Location & hours",
       quickWhatsapp: "Chat on WhatsApp",
+      quickDoctor: "About Dr. Bushra",
       typing: "Typing…",
+      closeAria: "Close chat",
+      errorReply: "I couldn't reach the server just now. You can message the clinic directly on WhatsApp: https://wa.me/962796444360",
       inputPlaceholder: "Type a message…",
       sendAria: "Send",
       continueWhatsapp: "Continue on WhatsApp",
@@ -262,7 +274,9 @@ export const dictionary: Record<Locale, Dictionary> = {
       stepMethod: "02. الطريقة المفضلة",
       stepPatient: "03. نوع المريض",
       selectTooth: "اختاري السن",
-      selectToothHint: "اضغطي على أي سن لإضافته لخطتك",
+      selectToothHint: "اضغط على أي سن في الصورة لإضافته لخطتك",
+      teethSelected: "تم اختيار {n}",
+      clearTeeth: "مسح",
       upper: "علوي",
       lower: "سفلي",
       right: "يمين",
@@ -281,7 +295,8 @@ export const dictionary: Record<Locale, Dictionary> = {
     },
     gallery: {
       heading: "معرض الحالات",
-      subheading: "نتائج حقيقية، لمرضى حقيقيين. يتم تحديث هذا القسم فور إضافة صور الحالات.",
+      subheading: "نظرة أقرب على الفرق الذي تصنعه خطة علاج مدروسة.",
+      disclaimer: "النتائج تختلف من شخص لآخر، وكل خطة تبدأ بتقييم شخصي في العيادة.",
     },
     testimonials: { heading: "آراء المرضى" },
     stories: {
@@ -321,13 +336,16 @@ export const dictionary: Record<Locale, Dictionary> = {
     },
     assistant: {
       name: "مساعد الحجز",
-      disclosure: "مساعد آلي للحجز",
-      greeting: "أهلاً! بقدر أساعدك تحجز زيارة مع الدكتورة بشرى — اسألني أي سؤال، أو استخدم اختصار من تحت.",
+      disclosure: "مساعد آلي للحجز · رد فوري",
+      greeting: "أهلاً وسهلاً! أنا مساعد الحجز عند الدكتورة بشرى. اسألني عن العلاجات، عن الدكتورة، عن موقع العيادة — أو خلينا نحجزلك موعد.",
       quickBook: "احجز زيارة",
       quickServices: "الخدمات",
       quickLocation: "الموقع وساعات العمل",
       quickWhatsapp: "تحدث معنا على واتساب",
+      quickDoctor: "عن الدكتورة بشرى",
       typing: "عم يكتب…",
+      closeAria: "إغلاق المحادثة",
+      errorReply: "ما قدرت أتواصل مع الخادم هلأ. تقدر تراسل العيادة مباشرة على واتساب: https://wa.me/962796444360",
       inputPlaceholder: "اكتب رسالة…",
       sendAria: "إرسال",
       continueWhatsapp: "تابع عبر واتساب",

@@ -71,37 +71,30 @@ export default function Hero() {
   ];
 
   /* ---------------------------------------------------------------- */
-  /* One orchestrated entrance: lines draw → chips settle → hotspot   */
+  /* One orchestrated entrance: hotspot appears, then chips settle    */
   /* ---------------------------------------------------------------- */
   useEffect(() => {
     const stage = stageRef.current;
     if (!stage) return;
 
     const chipEls = stage.querySelectorAll<HTMLElement>("[data-chip]");
-    const lineEls = stage.querySelectorAll<SVGLineElement>("[data-line]");
     const hotspot = stage.querySelector<HTMLElement>("[data-hotspot]");
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion) {
-      gsap.set([...chipEls, ...lineEls, hotspot], { clearProps: "all", opacity: 1 });
+      gsap.set([...chipEls, hotspot], { opacity: 1 });
       return;
     }
 
     const ctx = gsap.context(() => {
-      lineEls.forEach((l) => {
-        const len = l.getTotalLength();
-        gsap.set(l, { strokeDasharray: len, strokeDashoffset: len, opacity: 1 });
-      });
-
       gsap
-        .timeline({ delay: 0.55, defaults: { ease: "power3.out" } })
+        .timeline({ delay: 0.5, defaults: { ease: "power3.out" } })
         .fromTo(hotspot, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.5 })
-        .to(lineEls, { strokeDashoffset: 0, duration: 0.7, stagger: 0.08 }, "-=0.1")
         .fromTo(
           chipEls,
-          { opacity: 0, y: 8 },
-          { opacity: 1, y: 0, duration: 0.45, stagger: 0.08 },
-          "-=0.5"
+          { opacity: 0, y: 10 },
+          { opacity: 1, y: 0, duration: 0.55, stagger: 0.09 },
+          "-=0.25"
         );
     }, stage);
 
@@ -195,30 +188,6 @@ export default function Hero() {
               className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(0,20,60,0.28)_100%)]"
             />
 
-            {/* Leader lines: chip → tooth (desktop only) */}
-            <svg
-              aria-hidden
-              viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
-              preserveAspectRatio="none"
-              className="pointer-events-none absolute inset-0 hidden h-full w-full md:block"
-            >
-              {chipAnchors.map((a, i) => (
-                <line
-                  key={i}
-                  data-line
-                  x1={a.x}
-                  y1={a.y}
-                  x2={HOTSPOT.x}
-                  y2={HOTSPOT.y}
-                  stroke="white"
-                  strokeOpacity="0.55"
-                  strokeWidth="1"
-                  vectorEffect="non-scaling-stroke"
-                  style={{ opacity: 0 }}
-                />
-              ))}
-            </svg>
-
             {/* Hotspot */}
             <button
               ref={hotspotRef}
@@ -229,7 +198,6 @@ export default function Hero() {
               style={{ ...pct(HOTSPOT.x, HOTSPOT.y), opacity: 0 }}
               className="tap-target animate-pulse-ring absolute z-10 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
             >
-              <span className="h-2.5 w-2.5 rounded-full bg-white shadow-[0_0_0_4px_rgba(255,255,255,0.25)]" />
             </button>
 
             {/* Service callouts (desktop) */}

@@ -6,84 +6,82 @@ import Reveal from "@/components/Reveal";
 
 type CaseItem = {
   src: string;
-  alt: string;
+  width: number;
+  height: number;
+  alt: { ar: string; en: string };
   label: { ar: string; en: string };
   caption: { ar: string; en: string };
 };
 
-// عدّل النصوص هنا لتطابق كل صورة فعليًا — الوصف مكتوب بشكل عام لأنني لا أرى محتوى الصور.
+// Only photos with no third-party watermark or clinic branding belong here.
 const CASES: CaseItem[] = [
   {
-    src: "/images/case-1.jpg",
-    alt: "Dental case 1",
-    label: { ar: "الحالة 1", en: "Case 1" },
+    src: "/images/case-4.jpg",
+    width: 1600,
+    height: 900,
+    alt: {
+      ar: "قبل وبعد: أسنان أمامية علوية وسفلية بعد العلاج",
+      en: "Before and after: upper and lower front teeth following treatment",
+    },
+    label: { ar: "ابتسامة كاملة", en: "Full smile" },
     caption: {
-      ar: "تحسين مظهر الابتسامة بخطة علاج مخصّصة.",
-      en: "A smile enhancement with a tailored treatment plan.",
+      ar: "تنظيف وتجديد كامل للأسنان الأمامية — اللقطة العلوية قبل، والسفلية بعد.",
+      en: "A full front-teeth restoration — top frame before, bottom frame after.",
     },
   },
   {
     src: "/images/case-2.jpg",
-    alt: "Dental case 2",
-    label: { ar: "الحالة 2", en: "Case 2" },
-    caption: {
-      ar: "علاج يوازن بين الوظيفة والمظهر الطبيعي.",
-      en: "Treatment balancing function and a natural look.",
+    width: 480,
+    height: 480,
+    alt: {
+      ar: "قبل وبعد: تبييض الأسنان",
+      en: "Before and after: teeth whitening",
     },
-  },
-  {
-    src: "/images/case-3.jpg",
-    alt: "Dental case 3",
-    label: { ar: "الحالة 3", en: "Case 3" },
+    label: { ar: "تبييض", en: "Whitening" },
     caption: {
-      ar: "عناية دقيقة بتفاصيل الأسنان واللثة.",
-      en: "Careful attention to teeth and gum detail.",
+      ar: "فرق واضح في لون الأسنان — يسار قبل، يمين بعد.",
+      en: "A clear shade difference — left before, right after.",
     },
   },
 ];
 
 export default function Gallery() {
-  const { t } = useLocale();
+  const { locale, t } = useLocale();
+  const lang = locale === "ar" ? "ar" : "en";
 
   return (
-    <section id="gallery" className="scroll-mt-nav mx-auto max-w-[1200px] px-6 py-24 md:py-32">
+    <section id="gallery" className="scroll-mt-nav mx-auto max-w-[1200px] px-6 py-20 md:py-28">
       <Reveal>
-        <h2 className="font-display text-heading text-white">{t.gallery.heading}</h2>
-        <p className="mt-3 max-w-xl text-white/70">{t.gallery.subheading}</p>
+        <h2 className="font-display text-heading-lg text-center text-white">{t.gallery.heading}</h2>
+        <p className="mx-auto mt-3 max-w-xl text-center text-white/70">{t.gallery.subheading}</p>
       </Reveal>
 
-      <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-[3fr_2fr]">
         {CASES.map((item, i) => (
-          <Reveal key={item.src} delay={i * 0.08}>
-            <figure className="group overflow-hidden rounded-xl border border-white/10">
-              <div className="relative aspect-[4/5] overflow-hidden">
+          <Reveal key={item.src} delay={i * 0.1}>
+            <figure className="group h-full overflow-hidden rounded-[24px] border border-white/15 bg-white/5">
+              <div
+                className="relative overflow-hidden"
+                style={{ aspectRatio: `${item.width} / ${item.height}` }}
+              >
                 <Image
                   src={item.src}
-                  alt={item.alt}
+                  alt={item.alt[lang]}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                  sizes="(min-width: 768px) 50vw, 100vw"
                 />
               </div>
-              <figcaption className="px-5 py-4">
-                <p className="text-sm font-medium text-white">
-                  {item.label.ar} <span className="text-white/50">· {item.label.en}</span>
-                </p>
-                <p className="mt-1 text-sm leading-relaxed text-white/70">{item.caption.ar}</p>
-                <p className="text-sm leading-relaxed text-white/50" dir="ltr">
-                  {item.caption.en}
-                </p>
+              <figcaption className="px-6 py-5">
+                <p className="text-sm font-semibold text-white">{item.label[lang]}</p>
+                <p className="mt-1.5 text-sm leading-relaxed text-white/70">{item.caption[lang]}</p>
               </figcaption>
             </figure>
           </Reveal>
         ))}
       </div>
 
-      <Reveal delay={0.3}>
-        <p className="mt-8 text-xs text-white/50">
-          النتائج تختلف من حالة لأخرى. · Results vary from case to case.
-        </p>
-      </Reveal>
+      <p className="mt-8 text-center text-xs text-white/50">{t.gallery.disclaimer}</p>
     </section>
   );
 }

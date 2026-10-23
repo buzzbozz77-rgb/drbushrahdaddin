@@ -87,7 +87,9 @@ export default function BookingForm() {
             {submitted ? (
               <div className="flex flex-col items-center py-10 text-center">
                 <span className="flex h-12 w-12 items-center justify-center rounded-full bg-ink text-white">
-                  ✓
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                    <path d="M5 12.5l4.5 4.5L19 7.5" />
+                  </svg>
                 </span>
                 <p className="mt-4 font-display text-lg text-foreground">{t.booking.successTitle}</p>
                 <p className="mt-2 max-w-sm text-sm text-muted">{t.booking.successBody}</p>

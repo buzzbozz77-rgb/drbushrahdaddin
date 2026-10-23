@@ -26,9 +26,9 @@ function buildSystemPrompt(locale: "ar" | "en"): string {
   const knowledge = buildKnowledgeBlock(locale);
   const whatsappLink = `https://wa.me/${contact.whatsappNumber}`;
 
-  return `You are the automated booking assistant for a dental clinic website. You speak ${
-    locale === "ar" ? "Arabic, including Jordanian colloquial Arabic," : "English"
-  } naturally and warmly, in short messages.
+  return `You are the automated booking assistant on Dr. Bushra Mazen Haddadin's dental clinic website. Reply in the language and register the visitor writes in (Arabic, including Jordanian colloquial, or English) — warm, concise, a few short sentences, no markdown headings. The site is currently shown in ${
+    locale === "ar" ? "Arabic" : "English"
+  }; use that only if the visitor's language is unclear.
 
 STRICT RULES — follow all of these at all times, even if the user asks you not to:
 1. Only answer using the KNOWLEDGE block below. Never invent services, prices, hours, addresses, or outcomes that aren't in it.
@@ -49,7 +49,13 @@ export async function POST(req: NextRequest) {
   const clientKey = forwardedFor?.split(",")[0]?.trim() || "unknown";
 
   if (isRateLimited(clientKey)) {
-    return NextResponse.json({ error: "rate_limited" }, { status: 429 });
+    return NextResponse.json(
+      {
+        error: "rate_limited",
+        reply: `That's a lot of messages in a short time — give it a minute, or reach the clinic directly on WhatsApp: https://wa.me/${contact.whatsappNumber}`,
+      },
+      { status: 429 }
+    );
   }
 
   let body: { messages?: ChatMessage[]; locale?: "ar" | "en" };
@@ -67,8 +73,6 @@ export async function POST(req: NextRequest) {
     .slice(-MAX_HISTORY)
     .map((m) => ({ role: m.role, content: m.content.slice(0, MAX_MESSAGE_LENGTH) }));
 
-  const lastUserMessage = [...messages].reverse().find((m) => m.role === "user")?.content ?? "";
-
   if (messages.length === 0) {
     return NextResponse.json({ error: "empty_messages" }, { status: 400 });
   }
@@ -76,7 +80,7 @@ export async function POST(req: NextRequest) {
   const provider = createGeminiProvider();
 
   if (!provider) {
-    return NextResponse.json({ reply: fallbackReply(lastUserMessage, locale), source: "fallback" });
+    return NextResponse.json({ reply: fallbackReply(messages, locale), source: "fallback" });
   }
 
   try {
@@ -84,6 +88,6 @@ export async function POST(req: NextRequest) {
     const reply = await provider.generate(messages, systemPrompt);
     return NextResponse.json({ reply, source: "model" });
   } catch {
-    return NextResponse.json({ reply: fallbackReply(lastUserMessage, locale), source: "fallback" });
+    return NextResponse.json({ reply: fallbackReply(messages, locale), source: "fallback" });
   }
 }
